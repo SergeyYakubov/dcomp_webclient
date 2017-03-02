@@ -7,7 +7,7 @@ app.LoginForm = Backbone.View.extend({
         role: "dialog",
     },
     events: {
-        'click .btn': 'submit',
+        'submit': 'submit',
     },
 
     initialize: function () {
@@ -21,8 +21,11 @@ app.LoginForm = Backbone.View.extend({
         this.$el.html(app.templates.get("login_form")({}));
         return this;
     },
-    submit: function () {
-        console.log("hahaha");
+    submit: function (e) {
+        console.log(this.$('#inputUser').val());
+        console.log(this.$('#inputPassword').val());
+
+        e.preventDefault();
         //this.hideModal();
     },
     show: function () {
