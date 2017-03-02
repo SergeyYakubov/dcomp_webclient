@@ -17,17 +17,23 @@ app.LoginView = Backbone.View.extend({
 
     render: function () {
         this.$el.html(app.templates.get("login")(this.model.attributes));
-        
+
         return this;
     },
     login: function () {
+
+        if (!this.model.get('logged')) {
+            var loginForm = new app.LoginForm({});
+            loginForm.show();
+        }
+
         var newstate = {
             logged: !this.model.get('logged'),
         };
         this.model.set(newstate);
-        
-        path = this.model.get('logged') ? '':'/logout';
-        app.router.navigate(path,  {trigger: true, replace: true});
+
+        path = this.model.get('logged') ? '' : '/logout';
+        app.router.navigate(path, {trigger: true, replace: true});
     }
 });
 

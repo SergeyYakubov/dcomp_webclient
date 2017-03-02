@@ -22,7 +22,7 @@ app.state.set({
 
 (function ($) {
 
-    loadTemplate(['navbar','navbar_nologin', 'login'], function () {
+    loadTemplate(['navbar','navbar_nologin','login_form','login'], function () {
 
         app.router = new app.Router();
         Backbone.history.start();
