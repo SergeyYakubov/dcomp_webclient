@@ -1,19 +1,18 @@
 var app = app || {};
 
 app.Router = Backbone.Router.extend({
-
     routes: {
         "": "home",
         "about": "about",
-        "logout": "logout"
     },
 
     initialize: function () {
-        app.navbarView = new app.NavbarView({model: app.state});                
+        app.navbarView = new app.NavbarView({model: app.state});
+        this.listenTo(app.state, "change", this.processLoginStateChanged);
+    },
+    processLoginStateChanged: function () {
     },
     home: function () {
-    },
-    logout: function () {
     },
     about: function () {
     }

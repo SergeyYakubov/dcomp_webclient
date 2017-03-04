@@ -3,7 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/yakubov/projects/dcomp_webclient/public_html/js/app.js</file>
+            <file>file:/Users/serg/dcomp_webclient/public_html/templates/login_form.html</file>
+            <file>file:/Users/serg/dcomp_webclient/public_html/js/views/login_form.js</file>
+            <file>file:/Users/serg/dcomp_webclient/public_html/js/views/login.js</file>
+            <file>file:/Users/serg/dcomp_webclient/public_html/templates/navbar.html</file>
+            <file>file:/Users/serg/dcomp_webclient/public_html/index.html</file>
         </group>
     </open-files>
 </project-private>
