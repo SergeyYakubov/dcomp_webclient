@@ -1,17 +1,13 @@
 var app = app || {};
 
 app.LoginView = Backbone.View.extend({
-    id: 'loginButton', // attaches `this.el` to an existing element.
     events: {
-        'click': 'login',
+        'click #loginButton': 'login',
     },
 
     initialize: function () {
-
-
         _.bindAll(this, 'render', 'login'); // every function that uses 'this' as the current object should be in here
-
-        this.model.bind('change', this.render);
+        this.listenTo(this.model, 'change', this.render);
         this.render()
     },
 
@@ -21,19 +17,15 @@ app.LoginView = Backbone.View.extend({
         return this;
     },
     login: function () {
-
-        if (!this.model.get('logged')) {
-            var loginForm = new app.LoginForm({});
+        if (this.model.get('logged')) {
+            this.model.set({
+                logged: false,
+                user: ""
+            });
+        } else {
+            var loginForm = new app.LoginForm({model: this.model});
             loginForm.show();
         }
-
-        var newstate = {
-            logged: !this.model.get('logged'),
-        };
-        this.model.set(newstate);
-
-        path = this.model.get('logged') ? '' : '/logout';
-        app.router.navigate(path, {trigger: true, replace: true});
     }
 });
 

@@ -1,4 +1,13 @@
-<button class="btn btn-outline-success my-2 my-sm-0" id="loginButton" type="button">
-<%= logged ? "logout":"login" %>
+<% if (logged) { %>
+
+<span class="navbar-text">
+    <%= user %>
+</span>
+
+<% } %>
+
+<button class="btn btn-success btn-sm" id="loginButton" type="button">
+    <%= logged ? "logout":"login" %>
 </button>
+
 

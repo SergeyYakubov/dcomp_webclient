@@ -11,7 +11,7 @@ function render(tmpl_url, tmpl_data) {
         $.ajax({
             url: tmpl_url,
             method: 'GET',
-            dataType: 'html', //** Must add 
+            dataType: 'html', //** Must add
             async: false,
             success: function (data) {
                 tmpl_string = data;
@@ -30,8 +30,8 @@ app.NavbarView = Backbone.View.extend({
 
     initialize: function () {
         _.bindAll(this, 'render'); // every function that uses 'this' as the current object should be in here
-        this.model.bind('change', this.render);
-        this.render()
+        this.listenTo(this.model, 'change', this.render);
+        this.render();
     },
 
     render: function () {

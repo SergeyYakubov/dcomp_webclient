@@ -8,28 +8,34 @@ app.LoginForm = Backbone.View.extend({
     },
     events: {
         'submit': 'submit',
+        'hidden.bs.modal': 'close'
     },
 
     initialize: function () {
-        _.bindAll(this, 'render', 'submit', 'show');
+        _.bindAll(this, 'render', 'submit', 'show', 'close');
         this.render();
-    },
-    callback: function (eventType) {
-        console.log("event type was " + eventType);
     },
     render: function () {
         this.$el.html(app.templates.get("login_form")({}));
         return this;
     },
     submit: function (e) {
-        console.log(this.$('#inputUser').val());
-        console.log(this.$('#inputPassword').val());
-
         e.preventDefault();
-        //this.hideModal();
+        // console.log(this.$('#inputUser').val());
+        //console.log(this.$('#inputPassword').val());
+        var newstate = {
+            logged: true,
+            user: this.$('#inputUser').val(),
+        };
+        this.model.set(newstate);
+        this.$el.modal('hide');
     },
     show: function () {
         this.$el.modal("show");
+    },
+    close: function () {
+        this.$el.data('modal', null);
+        this.remove();
     },
 
 });
