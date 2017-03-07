@@ -7,36 +7,41 @@ app.LoginForm = Backbone.View.extend({
         role: "dialog",
     },
     events: {
-        'submit': 'submit',
-        'hidden.bs.modal': 'close'
+        'submit': 'onSubmit',
+        'hidden.bs.modal': 'onClose'
     },
 
     initialize: function () {
-        _.bindAll(this, 'render', 'submit', 'show', 'close');
+        _.bindAll(this, 'render', 'onSubmit', 'show', 'close','onClose',
+        'loginFailed');
+        this.listenTo(this.model, 'change:logged', this.close);
+        this.listenTo(this.model, 'change:attempts', this.loginFailed);
         this.render();
     },
     render: function () {
-        this.$el.html(app.templates.get("login_form")({}));
+        this.$el.html(app.templates.get("login_form")(this.model.attributes));
         return this;
     },
-    submit: function (e) {
+    onSubmit: function (e) {
         e.preventDefault();
-        // console.log(this.$('#inputUser').val());
-        //console.log(this.$('#inputPassword').val());
-        var newstate = {
-            logged: true,
-            user: this.$('#inputUser').val(),
-        };
-        this.model.set(newstate);
-        this.$el.modal('hide');
+        this.model.login(this.$('#inputUser').val(),this.$('#inputPassword').val());
     },
     show: function () {
         this.$el.modal("show");
     },
     close: function () {
+        this.$el.modal("hide");
+    },
+    onClose: function () {
+        this.model.set({'attempts':0});        
         this.$el.data('modal', null);
         this.remove();
     },
-
+    loginFailed: function () {
+        const attempts= this.model.get('attempts');
+        if (attempts === 0) return; // login was successful, do nothing here
+        this.render().$('[autofocus]').focus();
+    },
+    
 });
 

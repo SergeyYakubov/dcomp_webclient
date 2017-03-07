@@ -8,7 +8,7 @@ app.Router = Backbone.Router.extend({
 
     initialize: function () {
         app.navbarView = new app.NavbarView({model: app.state});
-        this.listenTo(app.state, "change", this.processLoginStateChanged);
+        this.listenTo(app.state, "change:logged", this.processLoginStateChanged);
     },
     processLoginStateChanged: function () {
     },

@@ -13,15 +13,12 @@ function loadTemplate(views, callback) {
     $.when.apply(null, deferreds).done(callback);
 }
 
-app.state = new app.LoginState({
-    logged: false
-});
 
+app.state = new app.LoginState();
 
 (function ($) {
 
     loadTemplate(['navbar', 'navbar_nologin', 'login_form', 'login'], function () {
-
         app.router = new app.Router();
         Backbone.history.start();
     });

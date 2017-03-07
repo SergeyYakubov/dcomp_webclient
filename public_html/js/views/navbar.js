@@ -30,7 +30,7 @@ app.NavbarView = Backbone.View.extend({
 
     initialize: function () {
         _.bindAll(this, 'render'); // every function that uses 'this' as the current object should be in here
-        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'change:logged', this.render);
         this.render();
     },
 

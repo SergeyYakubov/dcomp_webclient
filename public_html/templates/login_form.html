@@ -8,6 +8,15 @@
         </div>
         <div class="modal-body">
 
+            <% if (attempts>0) { %>
+            <div class="form-group">
+                <p class="form-text text-danger">
+                    <%= errorText %>
+                </p>              
+            </div>
+            <% } %>
+
+
             <form class="form-signin">
                 <div class="form-group">
                     <label for="inputUser" class="sr-only">User name</label>
@@ -17,11 +26,6 @@
                 <div class="form-group">
                     <label for="inputPassword" class="sr-only">Password</label>
                     <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-                    <!--            <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" value="remember-me"> Remember me
-                                    </label>
-                                </div> -->
                 </div>
                 <button id="loginBtn" class="btn btn-lg btn-success btn-block" type="submit">Login</button>
             </form>
@@ -29,20 +33,3 @@
 
     </div>
 </div>
-
-
-<!--
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-        </div>
-        <div class="modal-body">
-            ...
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-    </div>
-
--->

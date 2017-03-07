@@ -7,21 +7,17 @@ app.LoginView = Backbone.View.extend({
 
     initialize: function () {
         _.bindAll(this, 'render', 'login'); // every function that uses 'this' as the current object should be in here
-        this.listenTo(this.model, 'change', this.render);
+        this.listenTo(this.model, 'change:logged', this.render);
         this.render()
     },
 
     render: function () {
         this.$el.html(app.templates.get("login")(this.model.attributes));
-
         return this;
     },
     login: function () {
         if (this.model.get('logged')) {
-            this.model.set({
-                logged: false,
-                user: ""
-            });
+            this.model.logout();
         } else {
             var loginForm = new app.LoginForm({model: this.model});
             loginForm.show();
