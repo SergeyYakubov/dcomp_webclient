@@ -1,39 +1,42 @@
-var app = app || {};
+import Backbone from 'backbone';
 
-app.LoginState = Backbone.Model.extend({
-    defaults: {
-        logged: false,
-        user: "",
-        attempts: 0,
-        errorText: "",
-        token: "",
-    },
 
-    initialize: function () {
 
-        statestr = localStorage.getItem("state");
+class LoginState extends Backbone.Model {
+    get defaults() {
+        return {
+            logged: false,
+            user: "",
+            attempts: 0,
+            errorText: "",
+            token: ""
+        }
+    }
+
+    initialize() {
+
+        let statestr = localStorage.getItem("state");
         if (!statestr) {
             return
         }
 
-        var state = JSON.parse(statestr);
+        let state = JSON.parse(statestr);
         if (!state.token) {
             return;
         }
-        
+
         this.set(state);
-        
         this.login("", "", state.token);
-    },
-    reset: function () {
+    }
+
+    reset() {
         this.clear({silent: true});
         this.setDefaults();
-    },
-    setDefaults: function () {
+    }
+    setDefaults() {
         this.set(this.defaults);
-    },
-
-    login: function (user, passwd, token) {
+    }
+    login(user, passwd, token) {
         var that = this;
         var request = $.ajax({
             type: 'GET',
@@ -48,7 +51,6 @@ app.LoginState = Backbone.Model.extend({
                 token: response.Token,
             };
             localStorage.setItem("state", JSON.stringify(newstate));
-
             that.set(newstate);
             if (response.ValidityTime > 0) {
                 that.loginTimer = setTimeout(that.login.bind(that),
@@ -60,7 +62,6 @@ app.LoginState = Backbone.Model.extend({
             const message = xhr.status === 401 ?
                     "Wrong username or password." :
                     "Error from server. Please try later.";
-
             if (!token) {
                 var newstate = {
                     attempts: that.get('attempts') + 1,
@@ -70,13 +71,14 @@ app.LoginState = Backbone.Model.extend({
             }
             localStorage.setItem("state", JSON.stringify(newstate));
         });
-    },
-    logout: function () {
+    }
+    logout() {
         clearTimeout(this.loginTimer);
         this.setDefaults();
         localStorage.setItem("state", "");
-    },
-});
+    }
+}
+;
 
 function make_auth(user, password, token) {
     if (token) {
@@ -86,3 +88,6 @@ function make_auth(user, password, token) {
     var hash = btoa(tok);
     return 'Basic ' + hash;
 }
+
+
+export default LoginState;

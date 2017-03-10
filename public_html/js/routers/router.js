@@ -1,20 +1,29 @@
-var app = app || {};
+import Backbone from 'backbone';
+import NavbarView from '../views/navbar';
 
-app.Router = Backbone.Router.extend({
-    routes: {
-        "": "home",
-        "about": "about",
-    },
 
-    initialize: function () {
-        app.navbarView = new app.NavbarView({model: app.state});
-        this.listenTo(app.state, "change:logged", this.processLoginStateChanged);
-    },
-    processLoginStateChanged: function () {
-    },
-    home: function () {
-    },
-    about: function () {
+class Router extends Backbone.Router {
+    get routes() {
+        return {
+            "": "home",
+            "about": "about",
+        };
     }
 
-});
+    initialize() {
+        app.navbarView = new NavbarView({model: app.state});
+        this.listenTo(app.state, "change:logged", this.processLoginStateChanged);
+    }
+
+    processLoginStateChanged() {
+    }
+
+    home() {
+    }
+
+    about() {
+    }
+
+}
+
+export default Router;

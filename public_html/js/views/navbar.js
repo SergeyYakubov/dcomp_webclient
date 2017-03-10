@@ -1,52 +1,35 @@
-var app = app || {};
+import Backbone from 'backbone';
+import LoginView from './login';
+import _ from "underscore";
 
-function render(tmpl_url, tmpl_data) {
-    if (!render.tmpl_cache) {
-        render.tmpl_cache = {};
+class NavbarView extends Backbone.View {
+
+    get el() {
+        return $('.navcontainer');
     }
 
-    if (!render.tmpl_cache[tmpl_url]) {
-
-        var tmpl_string;
-        $.ajax({
-            url: tmpl_url,
-            method: 'GET',
-            dataType: 'html', //** Must add
-            async: false,
-            success: function (data) {
-                tmpl_string = data;
-            }
-        });
-
-        render.tmpl_cache[tmpl_url] = _.template(tmpl_string);
-    }
-
-    return render.tmpl_cache[tmpl_url](tmpl_data);
-}
-
-
-app.NavbarView = Backbone.View.extend({
-    el: $('.navcontainer'), // attaches `this.el` to an existing element.
-
-    initialize: function () {
+    initialize() {
         _.bindAll(this, 'render'); // every function that uses 'this' as the current object should be in here
         this.listenTo(this.model, 'change:logged', this.render);
+        this.templateLogged = _.template(require('../../templates/navbar.html'));
+        this.templateUnlogged = _.template(require('../../templates/navbar_nologin.html'));        
         this.render();
-    },
+    }
 
-    render: function () {
+    render() {
         if (app.state.get("logged")) {
-            this.$el.html(app.templates.get("navbar")(""));
+            this.$el.html(this.templateLogged(""));
         } else {
-            this.$el.html(app.templates.get("navbar_nologin")(""));
+            this.$el.html(this.templateUnlogged(""));
         }
 
-        this.loginView = new app.LoginView({model: app.state});
-
-        this.$('#login_container')
-                .append(this.loginView.el);
-
+        this.loginView = new LoginView({model: app.state});
+        
+        this.$('#login_container').append(this.loginView.el);
         return this;
-    },
-});
+    }
+
+}
+
+export default NavbarView;
 
