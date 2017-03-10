@@ -1,7 +1,4 @@
-import Backbone from 'backbone';
-import _ from "underscore";
 import 'bootstrap';
-
 
 class LoginForm extends Backbone.View {
 

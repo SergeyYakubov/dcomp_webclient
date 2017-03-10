@@ -1,6 +1,4 @@
-import Backbone from 'backbone';
 import LoginView from './login';
-import _ from "underscore";
 
 class NavbarView extends Backbone.View {
 

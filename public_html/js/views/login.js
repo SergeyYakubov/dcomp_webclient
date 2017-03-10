@@ -1,6 +1,4 @@
-import Backbone from 'backbone';
 import LoginForm from './loginform';
-import _ from "underscore";
 
 class LoginView extends Backbone.View {
     get events() {

@@ -1,7 +1,3 @@
-import Backbone from 'backbone';
-
-
-
 class LoginState extends Backbone.Model {
     get defaults() {
         return {

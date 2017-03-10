@@ -12,6 +12,8 @@ const commonPackages = new webpack.ProvidePlugin({
     tether: 'tether',
     Tether: 'tether',
     'window.Tether': 'tether',
+    '_': 'underscore',
+    'Backbone': 'backbone',
 })
 
 
