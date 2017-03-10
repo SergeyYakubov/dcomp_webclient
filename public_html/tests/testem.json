@@ -1,8 +1,0 @@
-{
-    "before_tests": "webpack",
-    "framework": "qunit",
-    "src_files": ["../../bundle.js","js/*.js"],
-    "serve_files": ["./build/bundle.js"]
-
-}
-

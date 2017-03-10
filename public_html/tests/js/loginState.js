@@ -1,6 +1,6 @@
 import LoginState from '../../js/models/loginState'
 
-var test=QUnit.test;
+const test=QUnit.test;
 
 
 const ls = new LoginState();
