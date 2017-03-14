@@ -24,27 +24,25 @@ class LoginState extends Backbone.Model {
         this.login("", "", state.token);
     }
 
-    initialize() {
-
-    }
-
     reset() {
+        if (this.loginTimer) {
+            clearTimeout(this.loginTimer);
+        }
         this.clear({silent: true});
-        this.setDefaults();
-    }
-    setDefaults() {
         this.set(this.defaults);
+        localStorage.setItem("state", "");
     }
+
     login(user, passwd, token) {
         var that = this;
-        var request = $.ajax({
+        const request = $.ajax({
             type: 'GET',
             url: 'https://localhost:8001/login/',
             dataType: 'json',
             headers: {"Authorization": make_auth(user, passwd, token)},
         });
         request.done(function (response) {
-            var newstate = {
+            const newstate = {
                 logged: true,
                 user: response.UserName,
                 token: response.Token,
@@ -62,19 +60,19 @@ class LoginState extends Backbone.Model {
                     "Wrong username or password." :
                     "Error from server. Please try later.";
             if (!token) {
-                var newstate = {
+                const newstate = {
                     attempts: that.get('attempts') + 1,
                     errorText: message,
                 };
                 that.set(newstate);
+            } else {
+                that.reset();
             }
-            localStorage.setItem("state", "");
         });
     }
+
     logout() {
-        clearTimeout(this.loginTimer);
-        this.setDefaults();
-        localStorage.setItem("state", "");
+        this.reset();
     }
 }
 ;

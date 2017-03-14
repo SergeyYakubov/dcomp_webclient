@@ -24,7 +24,7 @@ class LoginForm extends Backbone.View {
         _.bindAll(this, 'render', 'onSubmit', 'show', 'close', 'onClose',
                 'loginFailed');
         this.listenTo(this.model, 'change:logged', this.close);
-        this.listenTo(this.model, 'change:attempts', this.loginFailed);
+        this.listenTo(this.model, 'change:attempts', this.onloginAttempt);
         this.template = _.template(require('../../templates/login_form.html'));
         this.render();
     }
@@ -53,7 +53,7 @@ class LoginForm extends Backbone.View {
         this.remove();
     }
 
-    loginFailed() {
+    onloginAttempt() {
         const attempts = this.model.get('attempts');
         if (attempts === 0)
             return; // login was successful, do nothing here
