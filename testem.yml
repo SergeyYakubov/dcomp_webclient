@@ -1,0 +1,9 @@
+framework: qunit
+before_tests: node_modules/.bin/webpack --config webpack.testconfig.js
+src_files: 
+    - tests/js/**/*.js    
+    - js/**/*.js
+serve_files: 
+    - tests/build/bundle.js
+launch_in_dev:
+  - Chrome

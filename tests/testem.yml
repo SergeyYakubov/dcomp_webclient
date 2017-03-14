@@ -1,9 +1,0 @@
-before_tests: ../node_modules/.bin/webpack
-framework: qunit
-src_files: 
-    - ../../bundle.js
-    - js/*.js
-serve_files: 
-    - ./build/bundle.js
-
-

@@ -9,11 +9,10 @@ class LoginState extends Backbone.Model {
         }
     }
 
-    initialize() {
-
+    loginWithSavedToken() {
         let statestr = localStorage.getItem("state");
         if (!statestr) {
-            return
+            return;
         }
 
         let state = JSON.parse(statestr);
@@ -23,6 +22,10 @@ class LoginState extends Backbone.Model {
 
         this.set(state);
         this.login("", "", state.token);
+    }
+
+    initialize() {
+
     }
 
     reset() {
@@ -65,7 +68,7 @@ class LoginState extends Backbone.Model {
                 };
                 that.set(newstate);
             }
-            localStorage.setItem("state", JSON.stringify(newstate));
+            localStorage.setItem("state", "");
         });
     }
     logout() {

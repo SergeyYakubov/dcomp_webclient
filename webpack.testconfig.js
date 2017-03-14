@@ -17,9 +17,9 @@ const commonPackages = new webpack.ProvidePlugin({
 
 
 const config = {
-    entry: glob.sync("./js/**/*.js"),
+    entry: glob.sync("./tests/js/**/*.js"),
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'tests/build'),
         filename: 'bundle.js'
     },
     module: {
@@ -39,7 +39,7 @@ const config = {
     plugins:
             [
                 new ExtractTextPlugin('styles.css'),
-                new CleanWebpackPlugin(['build'], {
+                new CleanWebpackPlugin(['./tests/build'], {
                 }),
                 commonPackages,
             ]

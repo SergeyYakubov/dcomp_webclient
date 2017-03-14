@@ -5,6 +5,8 @@ const InlineManifestWebpackPlugin = require('inline-manifest-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const debug = process.env.NODE_ENV !== 'production';
+const glob = require("glob");
+
 const commonPackages = new webpack.ProvidePlugin({
     $: 'jquery',
     jQuery: 'jquery',
@@ -24,6 +26,7 @@ const config = {
         filename: debug ? 'bundle.js' : '[chunkhash].[name].js'
     },
     module: {
+        
         rules: [
             {
                 test: /\.html$/,
@@ -91,5 +94,41 @@ const config = {
             ]
 
 }
+
+
+//const configTests = {
+//    entry: glob.sync("./tests/js/**/*.js"),
+/*    output: {
+        path: path.resolve(__dirname, 'tests/build'),
+        filename: 'bundle.js'
+    },
+    module: {
+        rules: [
+            {
+                test: /\.html$/,
+                use: ["html-loader"]
+            },
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    use: 'css-loader',
+                })
+            },
+        ],
+    },
+    plugins:
+            [
+                new ExtractTextPlugin('styles.css'),
+                new CleanWebpackPlugin(['tests/build'], {
+                }),
+                commonPackages,
+            ]
+
+
+}
+
+
+module.exports = [config,configTests];
+*/
 
 module.exports = config;
