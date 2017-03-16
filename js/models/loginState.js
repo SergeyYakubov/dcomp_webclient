@@ -1,3 +1,5 @@
+import { make_auth } from '../utils'
+
 class LoginState extends Backbone.Model {
     get defaults() {
         return {
@@ -27,6 +29,7 @@ class LoginState extends Backbone.Model {
     reset() {
         if (this.loginTimer) {
             clearTimeout(this.loginTimer);
+            delete this.loginTimer;
         }
         this.clear({silent: true});
         this.set(this.defaults);
@@ -34,10 +37,9 @@ class LoginState extends Backbone.Model {
     }
 
     login(user, passwd, token) {
-        var that = this;
         const request = $.ajax({
             type: 'GET',
-            url: 'https://localhost:8001/login/',
+            url: 'login/',
             dataType: 'json',
             headers: {"Authorization": make_auth(user, passwd, token)},
         });
@@ -48,27 +50,27 @@ class LoginState extends Backbone.Model {
                 token: response.Token,
             };
             localStorage.setItem("state", JSON.stringify(newstate));
-            that.set(newstate);
+            this.set(newstate);
             if (response.ValidityTime > 0) {
-                that.loginTimer = setTimeout(that.login.bind(that),
+                this.loginTimer = setTimeout(_.bind(this.login,this),                
                         response.ValidityTime * 60000 - 10000,
                         "", "", response.Token);
             }
-        });
+        }.bind(this));
         request.fail(function (xhr, textStatus, errorThrown) {
             const message = xhr.status === 401 ?
                     "Wrong username or password." :
                     "Error from server. Please try later.";
             if (!token) {
                 const newstate = {
-                    attempts: that.get('attempts') + 1,
+                    attempts: this.get('attempts') + 1,
                     errorText: message,
                 };
-                that.set(newstate);
+                this.set(newstate);
             } else {
-                that.reset();
+                this.reset();
             }
-        });
+        }.bind(this));
     }
 
     logout() {
@@ -76,15 +78,6 @@ class LoginState extends Backbone.Model {
     }
 }
 ;
-
-function make_auth(user, password, token) {
-    if (token) {
-        return token;
-    }
-    var tok = user + ':' + password;
-    var hash = btoa(tok);
-    return 'Basic ' + hash;
-}
 
 
 export default LoginState;

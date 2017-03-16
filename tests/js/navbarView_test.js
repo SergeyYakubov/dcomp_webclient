@@ -26,8 +26,23 @@ test('navbar before login', function (assert) {
 test('after login navbar changes', function (assert) {
     expect(1);
     const navbarView = new NavbarView({model: app.state});
-    app.state.set({logged: "true"})
+    app.state.set({logged: "true"});
     assert.ok(navbarView.$("#loginButton").html().includes("logout"), "login button");
 });
 
 
+test('navbar click login opens form when not logged in', function (assert) {
+    expect(1);
+    const navbarView = new NavbarView({model: app.state});
+    navbarView.$("#loginButton").trigger("click");
+    assert.ok(navbarView.loginView.loginForm.$el.is(":visible"), "form is open");
+    navbarView.loginView.loginForm.close();
+});
+
+test('navbar click login logs out when logged in', function (assert) {
+    expect(1);
+    app.state.set({logged: "true"})
+    const navbarView = new NavbarView({model: app.state});
+    navbarView.$("#loginButton").trigger("click");
+    assert.strictEqual(app.state.get("logged"),false, "logged is false");
+});

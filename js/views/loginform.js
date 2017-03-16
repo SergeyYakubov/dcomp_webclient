@@ -22,7 +22,7 @@ class LoginForm extends Backbone.View {
 
     initialize() {
         _.bindAll(this, 'render', 'onSubmit', 'show', 'close', 'onClose',
-                'loginFailed');
+                'onloginAttempt');
         this.listenTo(this.model, 'change:logged', this.close);
         this.listenTo(this.model, 'change:attempts', this.onloginAttempt);
         this.template = _.template(require('../../templates/login_form.html'));

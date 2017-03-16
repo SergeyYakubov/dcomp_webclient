@@ -23,8 +23,8 @@ class LoginView extends Backbone.View {
         if (this.model.get('logged')) {
             this.model.logout();
         } else {
-            const loginForm = new LoginForm({model: this.model});
-            loginForm.show();
+            this.loginForm = new LoginForm({model: this.model});
+            this.loginForm.show();
         }
     }
 }
