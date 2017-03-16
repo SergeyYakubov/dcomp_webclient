@@ -17,17 +17,23 @@ QUnit.module('check navbar', {
 });
 
 test('navbar before login', function (assert) {
-    expect(1);
+    expect(3);
     const navbarView = new NavbarView({model: app.state});
     assert.ok(navbarView.$("#loginButton").html().includes("login"), "login button");
+    assert.ok(navbarView.$(".navbar-nav").html().includes("About"), "about menu");
+    assert.notOk(navbarView.$(".navbar-nav").html().includes("Jobs"), "about menu");    
+    
 });
 
 
 test('after login navbar changes', function (assert) {
-    expect(1);
+    expect(3);
     const navbarView = new NavbarView({model: app.state});
     app.state.set({logged: "true"});
     assert.ok(navbarView.$("#loginButton").html().includes("logout"), "login button");
+    assert.ok(navbarView.$(".navbar-nav").html().includes("About"), "about menu");
+    assert.ok(navbarView.$(".navbar-nav").html().includes("Jobs"), "jobs menu");    
+    
 });
 
 
