@@ -1,7 +1,6 @@
 
 import LoginState from '../../js/models/loginState';
 import NavbarView from '../../js/views/navbar';
-import sinon from 'sinon';
 
 const test = QUnit.test;
 

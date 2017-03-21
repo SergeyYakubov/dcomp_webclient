@@ -1,5 +1,6 @@
 import LoginState from '../models/loginState';
 import NavbarView from '../views/navbar';
+import JobListView from '../views/joblistview';
 
 class Router extends Backbone.Router {
     get routes() {
@@ -19,28 +20,33 @@ class Router extends Backbone.Router {
 
     navigateStateBased() {
         if (app.state.get("logged")) {
-            this.navigate("jobs",{trigger: true, replace: true});
+            this.navigate("jobs", {trigger: true, replace: true});
         } else {
-            this.navigate("about",{trigger: true, replace: true});
+            this.navigate("about", {trigger: true, replace: true});
         }
     }
 
     jobs() {
         app.navbarView.selectMenuItem("jobs-menu");
+        const view = new JobListView();
+        this.render(view);
     }
 
     about() {
         app.navbarView.selectMenuItem("about-menu");
+        this.render(null);
+
     }
 
     render(view) {
 
         if (this.currentView) {
-            // SY don't forget to reomve childern views later;
-            this.currentView.remove();
+            this.currentView.close();
         }
 
-        view.render();
+        if (view) {
+            view.render();
+        }
 
         this.currentView = view;
 
