@@ -1,6 +1,6 @@
 import LeftMenuView from './leftmenuview';
-import JobListActionsView from '../../js/views/joblist_actionsview';
-
+import JobListActionsView from './joblist_actionsview';
+import JobInfoListView from "./jobinfolistview"
 
 class JobListView extends Backbone.View {
 
@@ -26,7 +26,7 @@ class JobListView extends Backbone.View {
 
         this.appendSubView(new LeftMenuView(), "left-menu");
         this.appendSubView(new LeftMenuView(), "job-filter");
-        this.appendSubView(new LeftMenuView(), "job-list");
+        this.appendSubView(new JobInfoListView(), "job-list");
         this.appendSubView(new JobListActionsView(), "actions-panel");
 
         return this;
