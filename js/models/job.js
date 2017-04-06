@@ -9,8 +9,13 @@ class JobInfo extends Backbone.Model {
             Status: "",
             StartTime: "",
             EndTime: "",
-            Message: ""
+            Message: "",
+            Id: ""
         }
+    }
+
+    get idAttribute() {
+        return "Id"
     }
 
 }

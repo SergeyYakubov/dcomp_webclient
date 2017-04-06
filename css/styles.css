@@ -33,3 +33,21 @@ and open the template in the editor.
   background-color: rgba(86,61,124,.15);
   border: 1px solid rgba(86,61,124,.2); */
 }
+
+.my_checkbox {
+    width:1rem;
+    height:1rem;
+}
+
+.list-group-item {
+  border-top-right-radius: 0px !important;
+  border-top-left-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+
+.dropdown-menu {
+  min-width: 0px !important;    
+  width: 110%; 
+}
+

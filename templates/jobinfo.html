@@ -1,4 +1,21 @@
-<%= ImageName %>
-<% if (full) { %>
-<%= Status %>
-<% } %>
+
+<div class="input-group">
+    <span class="input-group-addon rounded-0">
+        <input type="checkbox" class="my_checkbox" aria-label="Checkbox for following text input">
+    </span>
+    <button type="button" class="list-group-item 
+            list-group-item-action" 
+            data-toggle="collapse"
+            data-target="#<%=Id%>" aria-expanded="false" 
+            aria-controls="<%=Id%>">
+        <%= Id %>    
+        <%= ImageName %>
+    </button>
+
+</div>
+<div class="collapse <%= collapsed?'show':'' %>" id="<%=Id%>">
+    <div class="card card-block rounded-0">
+        <%= Status %>
+        <%= Id %>
+    </div>
+</div>

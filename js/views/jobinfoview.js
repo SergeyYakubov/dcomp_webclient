@@ -1,37 +1,48 @@
 import JobInfo from '../models/job';
+import 'bootstrap';
 
 class JobInfoView extends Backbone.View {
 
-    get className() {
-        return "list-group-item list-group-item-action";
-    }
-
-    get tagName() {
-        return "li";
-    }
-
+    /*    get className() {
+     return "list-group-item list-group-item-action";
+     }
+     
+     get tagName() {
+     return "li";
+     }
+     */
     get events() {
         return {
-            "click": "onClick"
+            "click": "onClick",
+            "hidden.bs.collapse": "onCollapse",
+            "shown.bs.collapse": "onExpand",
         }
     }
 
     initialize() {
-        _.bindAll(this, "render","onClick");
+        _.bindAll(this, "render", "onClick", "onCollapse", "onExpand");
+        this.listenTo(this.model, 'change', this.render);
         this.template = _.template(require('../../templates/jobinfo.html'));
-        this.expand = false;
+        this.collapsed = false;
     }
 
     onClick() {
-        this.expand = !this.expand;
-        this.render();
+        this.$("button").blur();
     }
 
+    onCollapse() {
+        this.collapsed = true;
+    }
+
+    onExpand() {
+        this.collapsed = false;
+    }
+    
     render() {
-        this.$el.html(this.template(_.extend(this.model.attributes, {full: this.expand})));
+        const html = this.template(_.extend(this.model.attributes, {collapsed: this.collapsed}));
+        this.$el.html(html);
         return this;
     }
-
 }
 
 export default JobInfoView;

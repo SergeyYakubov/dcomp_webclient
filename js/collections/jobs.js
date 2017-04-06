@@ -1,11 +1,11 @@
 import JobInfo from '../models/job';
 
 class JobInfos extends Backbone.Collection {
-    
-    get url(){
+
+    get url() {
         return "/jobs/";
     }
-    
+
     get model() {
         return JobInfo;
     }

@@ -4,11 +4,15 @@ import JobInfoView from '../../js/views/jobinfoview';
 class JobInfoListView extends Backbone.View {
 
     initialize() {
-        _.bindAll(this, "render", "updateJobs");
+        _.bindAll(this, "render", "updateJobs", "addJob", "removeJob", "changedCollection");
         this.template = _.template(require('../../templates/jobinfolist.html'));
         this.jobs = new JobInfos();
-        this.listenTo(this.jobs, 'reset', this.render);
+        this.listenTo(this.jobs, 'add', this.addJob);
+        this.listenTo(this.jobs, 'remove', this.removeJob);
+        this.listenTo(this.jobs, 'change', this.changedCollection);
+
         this.subviews = [];
+        this.resetjobs = true;
         this.updateJobs();
     }
 
@@ -19,20 +23,33 @@ class JobInfoListView extends Backbone.View {
         this.subviews.length = 0;
     }
 
+    changedCollection() {
+        console.log("changed");
+    }
+
     updateJobs() {
         this.jobs.fetch({
-            reset: true,
-            data: {finished:true},
+            data: {finished: true},
+            reset: this.resetjobs,
+            merge: false,
             headers: {'Authorization': app.state.get("token")},
-            success: function () {
-                this.loginTimer = setTimeout(this.updateJobs, 10000);
+            success: function (collection, response, options) {
+                // need this to process empty JSON response
+                if (response == null) {
+                    this.jobs.set([]);
+                }
+                this.loginTimer = setTimeout(this.updateJobs, 1000);
                 this.SuccessUpdate = true;
-                this.render();
+                if (this.resetjobs) {
+                    this.resetjobs = false;
+                    this.render();
+                }
             }.bind(this),
             error: function (model, xhr, options) {
-                console.log(options);
+                console.log(options)
                 this.SuccessUpdate = false;
                 this.resetTimer();
+                this.resetjobs = true;
                 this.render();
             }.bind(this)
         });
@@ -45,22 +62,25 @@ class JobInfoListView extends Backbone.View {
         }
     }
 
+    addJob(job) {
+        const subview = new JobInfoView({model: job});
+        this.$('#jobinfolist').append(subview.render().el);
+        this.subviews.push(subview);
+    }
+
+    removeJob(model, collection, options) {
+        this.subviews[options.index].remove();
+        this.subviews.splice(options.index, 1);
+    }
+
     addJobs() {
         this.clearJobs();
-        this.jobs.forEach(
-                function (job) {
-                    const subview = new JobInfoView({model: job});
-                    this.$('#jobinfolist').append(subview.render().el);
-                    this.subviews.push(subview);
-                }.bind(this)
-                );
+        this.jobs.forEach(this.addJob);
     }
 
     render() {
         this.$el.html(this.template({success: this.SuccessUpdate}));
-        if (this.SuccessUpdate) {
-            this.addJobs();
-        }
+        this.addJobs();
         return this;
     }
 
