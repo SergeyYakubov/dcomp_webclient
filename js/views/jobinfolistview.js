@@ -65,10 +65,12 @@ class JobInfoListView extends Backbone.View {
     addJob(job) {
         const subview = new JobInfoView({model: job});
         this.$('#jobinfolist').append(subview.render().el);
+        this.$('#jobinfolist').append(subview.extendedView.el);        
         this.subviews.push(subview);
     }
 
     removeJob(model, collection, options) {
+        this.subviews[options.index].extendedView.remove();
         this.subviews[options.index].remove();
         this.subviews.splice(options.index, 1);
     }

@@ -1,9 +1,20 @@
 <% if (success) { %>
-<div class="list-group" id="jobinfolist">
-</div>
+
+<table class="table" >
+    <thead class="thead">
+        <tr>
+            <th>Id</th>
+            <td>Image</td>
+            <td>Status</td>
+            <td class="text-center">Selected</td>            
+        </tr>
+    </thead>    
+    <tbody id="jobinfolist">
+
+    </tbody>
+</table>
+
 <% } else { %>
 <p class="text-center">Cannot connect to server. Please try later ...</p>
 <% } %>
-
-
 
