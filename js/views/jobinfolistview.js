@@ -1,18 +1,18 @@
 import JobInfo from "../models/job";
 import JobInfos from "../collections/jobs";
 import JobInfoView from '../../js/views/jobinfoview';
+import JobInfoViewExpanded from '../../js/views/jobinfoview_expanded';
 class JobInfoListView extends Backbone.View {
 
     initialize() {
         _.bindAll(this, "render", "updateJobs", "addJob", "removeJob",
-                "changedCollection", "onClickExpandButton", "onClick");
+                "onClickExpandButton", "onClick");
         this.template = _.template(require('../../templates/jobinfolist.html'));
         this.jobs = new JobInfos();
         this.listenTo(this.jobs, 'add', this.addJob);
         this.listenTo(this.jobs, 'remove', this.removeJob);
-        this.listenTo(this.jobs, 'change', this.changedCollection);
-
         this.subviews = [];
+        this.subviews_e = [];
         this.resetjobs = true;
         this.updateJobs();
     }
@@ -26,20 +26,22 @@ class JobInfoListView extends Backbone.View {
 
     clearJobs() {
         for (let i = 0; i < this.subviews.length; i++) {
+            this.subviews_e[i].remove();
             this.subviews[i].remove();
         }
         this.subviews.length = 0;
+        this.subviews_e.length = 0;
     }
 
-    changedCollection() {
-        console.log("changed");
-    }
+//    changedCollection() {
+//        console.log("changed");
+//    }
 
     updateJobs() {
         this.jobs.fetch({
             data: {finished: true},
             reset: this.resetjobs,
-            merge: false,
+            merge: true,
             headers: {'Authorization': app.state.get("token")},
             success: function (collection, response, options) {
                 // need this to process empty JSON response
@@ -54,7 +56,6 @@ class JobInfoListView extends Backbone.View {
                 }
             }.bind(this),
             error: function (model, xhr, options) {
-                console.log(options)
                 this.SuccessUpdate = false;
                 this.resetTimer();
                 this.resetjobs = true;
@@ -72,16 +73,21 @@ class JobInfoListView extends Backbone.View {
 
     addJob(job) {
         const subview = new JobInfoView({model: job});
-        subview.parentView = this;
+        const subviewExpanded = new JobInfoViewExpanded({model: job});
+        subviewExpanded.parentView = this;
         this.$('#jobinfolist').append(subview.render().el);
-        this.$('#jobinfolist').append(subview.extendedView.el);
+        this.$('#jobinfolist').append(subviewExpanded.render().el);
         this.subviews.push(subview);
+        this.subviews_e.push(subviewExpanded);
+
     }
 
     removeJob(model, collection, options) {
-        this.subviews[options.index].extendedView.remove();
         this.subviews[options.index].remove();
         this.subviews.splice(options.index, 1);
+        this.subviews_e[options.index].remove();
+        this.subviews_e.splice(options.index, 1);
+        
     }
 
     addJobs() {
@@ -103,9 +109,8 @@ class JobInfoListView extends Backbone.View {
     }
 
     onClickExpandButton() {
-        for (let i = 0; i < this.subviews.length; i++) {
-            const id = "#" + this.subviews[i].model.get("Id");
-            this.$(id).collapse(this.allExpanded ? "hide" : "show");
+        for (let i = 0; i < this.subviews_e.length; i++) {
+            this.subviews_e[i].$el.collapse(this.allExpanded ? "hide" : "show");
         }
         this.allExpanded = !this.allExpanded;
         this.setExpandButtonText();
@@ -119,8 +124,8 @@ class JobInfoListView extends Backbone.View {
     updateExpanded() {
         let allCollapsed = true;
         let allExpanded = true;
-        for (let i = 0; i < this.subviews.length; i++) {
-            if (this.subviews[i].collapsed) {
+        for (let i = 0; i < this.subviews_e.length; i++) {
+            if (this.subviews_e[i].collapsed) {
                 allExpanded = false;
             } else {
                 allCollapsed = false;

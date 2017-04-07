@@ -82,5 +82,11 @@ table tbody tr:nth-child(4n+4)
 }
 
 .table {
-font-size: 0.9rem;
+    font-size: 0.9rem;
+}
+
+
+.card {
+    overflow:auto ;
+    max-height: 75vh;
 }

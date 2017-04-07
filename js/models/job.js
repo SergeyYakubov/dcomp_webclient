@@ -6,7 +6,7 @@ class JobInfo extends Backbone.Model {
             NCPUs: 1,
             NNodes: 0,
             Resource: "",
-            Status: "",
+            StatusString: "",
             StartTime: "",
             EndTime: "",
             Message: "",

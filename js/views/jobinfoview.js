@@ -15,28 +15,24 @@ class JobInfoView extends Backbone.View {
         return {
             "click": "onClick",
             "click .my_checkbox": "onCheckboxAreaClick",
-            "click :input[type=checkbox]":"onCheckboxClick",
-            "hidden.bs.collapse": "onCollapse",
-            "shown.bs.collapse": "onExpand",
+            "click :input[type=checkbox]": "onCheckboxClick",
         }
     }
 
     initialize() {
-        _.bindAll(this, "render", "onClick", "onCollapse", "onExpand",
-                "onCheckboxAreaClick","onCheckboxClick");
+        _.bindAll(this, "render", "onClick",
+                "onCheckboxAreaClick", "onCheckboxClick");
         this.listenTo(this.model, 'change', this.render);
         this.template = _.template(require('../../templates/jobinfo.html'));
-        this.collapsed = false;
+        this.firstRender = true;
     }
-
 
     onCheckboxClick(event) {
         event.stopPropagation();
     }
 
-
     onCheckboxAreaClick(event) {
-        event.stopPropagation();   
+        event.stopPropagation();
         const cb = this.$('input[type=checkbox]');
         cb.prop("checked", !cb.is(":checked"));
     }
@@ -50,27 +46,19 @@ class JobInfoView extends Backbone.View {
         this.$("button").blur();
     }
 
-    onCollapse() {
-        this.collapsed = true;
-        this.parentView.updateExpanded();
-    }
-
-    onExpand() {
-        this.collapsed = false;
-        this.parentView.updateExpanded();
-    }
-
     render() {
-        const shortId = this.model.get("Id").slice(-3);
-        const html = this.template(_.extend(this.model.attributes,
-                {collapsed: this.collapsed,
-                    shortId: shortId}));
-        const newElement = $(html);
-        const hiddenElement = newElement.next();
-        this.extendedView = new Backbone.View({el: hiddenElement});
+        const ID = this.model.get("JobName") || "... " + this.model.get("Id").slice(-3);
 
-        this.$el.replaceWith(newElement);
-        this.setElement(newElement);
+        const newElement = $(this.template(_.extend(this.model.attributes,
+                {ID: ID})));
+        
+        if (this.firstRender) {
+            this.setElement(newElement);
+        }
+        
+        this.$el.html(newElement.html());
+
+        this.firstRender = false;
         return this;
     }
 }
