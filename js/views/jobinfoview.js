@@ -14,23 +14,36 @@ class JobInfoView extends Backbone.View {
     get events() {
         return {
             "click": "onClick",
-            "click .my_checkbox": "onCheckbox",
+            "click .my_checkbox": "onCheckboxAreaClick",
+            "click :input[type=checkbox]":"onCheckboxClick",
             "hidden.bs.collapse": "onCollapse",
             "shown.bs.collapse": "onExpand",
         }
     }
 
     initialize() {
-        _.bindAll(this, "render", "onClick", "onCollapse", "onExpand", "onCheckbox");
+        _.bindAll(this, "render", "onClick", "onCollapse", "onExpand",
+                "onCheckboxAreaClick","onCheckboxClick");
         this.listenTo(this.model, 'change', this.render);
         this.template = _.template(require('../../templates/jobinfo.html'));
         this.collapsed = false;
     }
 
-    onCheckbox(event) {
-        const cb = this.$('input[type=checkbox]');
-        cb.attr("checked", !cb.attr("checked"));
+
+    onCheckboxClick(event) {
         event.stopPropagation();
+    }
+
+
+    onCheckboxAreaClick(event) {
+        event.stopPropagation();   
+        const cb = this.$('input[type=checkbox]');
+        cb.prop("checked", !cb.is(":checked"));
+    }
+
+    isSelected() {
+        const cb = this.$('input[type=checkbox]');
+        return cb.is(":checked");
     }
 
     onClick() {
@@ -39,10 +52,12 @@ class JobInfoView extends Backbone.View {
 
     onCollapse() {
         this.collapsed = true;
+        this.parentView.updateExpanded();
     }
 
     onExpand() {
         this.collapsed = false;
+        this.parentView.updateExpanded();
     }
 
     render() {

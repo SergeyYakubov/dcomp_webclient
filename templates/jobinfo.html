@@ -2,7 +2,7 @@
     data-toggle="collapse"
     data-target="#<%=Id%>" aria-expanded="false" 
     >
-    <th scope="row">... <%= shortId  %>  </th>
+    <td scope="row">... <%= shortId  %>  </td>
     <td><%= ImageName %></td>
     <td><%= Status %></td>
     <td class="text-center my_checkbox"><input type="checkbox"></td>
@@ -10,7 +10,6 @@
 
 <tr class="no-hover collapse <%= collapsed?'show':'' %>" id="<%=Id%>">
         <td colspan="4">
-
     <%= Status %>
     <%= Id %>
     </td>

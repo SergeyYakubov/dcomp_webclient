@@ -73,6 +73,14 @@ table tbody tr:nth-child(4n+4)
 
 
 .table th, .table td {
-    border: none !important;
+    border: none ;
 }
 
+.table thead td,.table thead th {
+    border-bottom : solid thin;
+    font-size: 0.8rem;
+}
+
+.table {
+font-size: 0.9rem;
+}

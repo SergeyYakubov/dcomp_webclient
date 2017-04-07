@@ -1,18 +1,30 @@
 <% if (success) { %>
 
-<table class="table" >
-    <thead class="thead">
-        <tr>
-            <th>Id</th>
-            <td>Image</td>
-            <td>Status</td>
-            <td class="text-center">Selected</td>            
-        </tr>
-    </thead>    
-    <tbody id="jobinfolist">
+<div class="card">
+    <div class="card-block">
+        <div class="d-flex justify-content-between flex-row">
+            <h5 class="align-self-center m-0 text-info">Job list</h5>
+            <button class="btn btn-info btn-sm" id="expandButton" type="button"
+                    style="font-size : 0.75rem;">
+                Expand all details
+            </button>
 
-    </tbody>
-</table>
+        </div>
+        <table class="table table-sm mt-2" >
+            <thead class="thead">
+                <tr>
+                    <th>Id</th>
+                    <th>Image</th>
+                    <th>Status</th>
+                    <th class="text-center">Selected</th>            
+                </tr>
+            </thead>    
+            <tbody id="jobinfolist">
+
+            </tbody>
+        </table>
+    </div> 
+</div>
 
 <% } else { %>
 <p class="text-center">Cannot connect to server. Please try later ...</p>
