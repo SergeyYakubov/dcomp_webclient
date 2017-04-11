@@ -2,6 +2,9 @@ import JobInfo from "../models/job";
 import JobInfos from "../collections/jobs";
 import JobInfoView from '../../js/views/jobinfoview';
 import JobInfoViewExpanded from '../../js/views/jobinfoview_expanded';
+
+import sinon from "sinon";
+
 class JobInfoListView extends Backbone.View {
 
     initialize() {
@@ -87,7 +90,7 @@ class JobInfoListView extends Backbone.View {
         this.subviews.splice(options.index, 1);
         this.subviews_e[options.index].remove();
         this.subviews_e.splice(options.index, 1);
-        
+
     }
 
     addJobs() {

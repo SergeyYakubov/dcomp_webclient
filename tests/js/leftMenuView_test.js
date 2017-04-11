@@ -4,12 +4,12 @@ const test = QUnit.test;
 
 
 QUnit.module('check leftmenu', {
-    setup: function () {
+    beforeEach: function () {
         this.leftMenu = new LeftMenuView();
         $("#qunit-fixture").append(this.leftMenu.el);
         this.leftMenu.render();        
     },
-    teardown: function () {
+    afterEach: function () {
     }
 });
 
@@ -21,3 +21,6 @@ test('left menu contains necessary data', function (assert) {
     assert.ok(this.leftMenu.$el.html().includes("#newjob"), "new job link");
     
 });
+
+
+QUnit.module();

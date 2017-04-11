@@ -3,17 +3,19 @@ import LoginState from '../../js/models/loginState';
 import LoginForm from '../../js/views/loginform';
 import sinon from 'sinon';
 
+
+
 const test = QUnit.test;
 
 QUnit.module('check login form', {
-    setup: function () {
+    beforeEach: function () {
         this.ls = new LoginState();
         this.loginForm = new LoginForm({model: this.ls});
 
         this.loginForm.show();
 
     },
-    teardown: function () {
+    afterEach: function () {
         this.loginForm.close();
 
     }
@@ -61,3 +63,8 @@ test('closing login form', function (assert) {
     assert.ok(_.isEmpty(this.loginForm.$el.data()),"form cleared");
 
 });
+
+
+
+
+QUnit.module();

@@ -6,11 +6,11 @@ const test = QUnit.test;
 
 
 QUnit.module('check navbar', {
-    setup: function () {
+    beforeEach: function () {
         window.app = {state: new LoginState()};
         $("#qunit-fixture").append('<div class = "navcontainer"></div>');
     },
-    teardown: function () {
+    afterEach: function () {
         delete window.app;
     }
 });
@@ -51,3 +51,6 @@ test('navbar click login logs out when logged in', function (assert) {
     navbarView.$("#loginButton").trigger("click");
     assert.strictEqual(app.state.get("logged"),false, "logged is false");
 });
+
+
+QUnit.module();

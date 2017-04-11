@@ -1,5 +1,6 @@
 import * as utils from '../../js/utils'
 
+
 QUnit.test('make auth with passwd', function (assert) {
     expect(1);
     
@@ -16,3 +17,6 @@ QUnit.test('make auth with token', function (assert) {
 
 });
 
+
+
+QUnit.module();

@@ -7,21 +7,26 @@ const test = QUnit.test;
 
 
 QUnit.module('check router', {
-    setup: function () {
+    beforeEach: function () {
         window.app = {state: new LoginState()};
         this.storageSetItemStub = sinon.stub(window.localStorage, 'setItem');
         this.storageGetItemStub = sinon.stub(window.localStorage, 'getItem');
         this.storageGetItemStub.returns("");
         $("#qunit-fixture").append('<div class = "navcontainer"></div>');
+        
+        this.fetchstub = sinon.stub(Backbone.Collection.prototype, 'fetch');
+        
+        
         app.router = new Router();
         Backbone.history.start();
     },
-    teardown: function () {
+    afterEach: function () {
         app.router.navigate("", {trigger: false, replace: true});
         this.storageSetItemStub.restore();
         this.storageGetItemStub.restore();
-        delete window.app;
         Backbone.history.stop();
+        this.fetchstub.restore();
+        delete window.app;        
     }
 });
 
@@ -62,3 +67,6 @@ test('previous view is closed', function (assert) {
     assert.ok(view.close.calledOnce);
 });
 
+
+
+QUnit.module();

@@ -1,8 +1,11 @@
 import LoginState from '../../js/models/loginState';
 import sinon from 'sinon';
 
+
+
+
 QUnit.module('check login model', {
-    setup: function () {
+    beforeEach: function () {
         this.server = sinon.fakeServer.create();
         this.storageSetItemStub = sinon.stub(window.localStorage, 'setItem');
         this.storageSetItemStub.returns("");
@@ -10,7 +13,7 @@ QUnit.module('check login model', {
         this.ls = new LoginState();
 
     },
-    teardown: function () {
+    afterEach: function () {
         this.server.restore();
         this.storageSetItemStub.restore();
         this.clock.restore();
@@ -163,3 +166,6 @@ QUnit.test('login with saved token', function (assert) {
 
 });
 
+
+
+QUnit.module();
