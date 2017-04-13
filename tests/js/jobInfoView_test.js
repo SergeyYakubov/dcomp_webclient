@@ -33,23 +33,4 @@ QUnit.test('has necessary data', function (assert) {
 });
 
 
-
-/*
-QUnit.test('expand works', function (assert) {
-    expect(1);
-    this.view.$el.trigger("click");
-    assert.ok(this.view.$el.html().includes("image1"), "view expanded");
-});
-
-
-QUnit.test('collapse works', function (assert) {
-    expect(1);
-    this.view.$el.trigger("click");
-    this.view.$el.trigger("click");
-    assert.notOk(this.view.$el.html().includes("image1"), "view collapsed");
-});
-
-*/
-
-
 QUnit.module();

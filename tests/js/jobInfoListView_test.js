@@ -10,16 +10,17 @@ import sinon from 'sinon';
 QUnit.module('check job info list view ', {
     beforeEach: function () {
         window.app = {state: new LoginState({logged: true})};
-        
+
         $("#qunit-fixture").append('<div id = "job-list"></div>');
 
         this.server = sinon.fakeServer.create();
         this.clock = sinon.useFakeTimers();
-        
+
         this.server.respondWith("GET", "/jobs/?finished=true",
                 [200, {"Content-Type": "application/json"},
-                    `[{"ImageName": "image1"},{"ImageName": "image2"}]`]);
-        
+                    `[{"ImageName": "image1","Id": "Id1"},
+                      {"ImageName": "image2","Id": "Id2"}]`]);
+
         this.view = new JobInfoListView();
 
         this.server.respond();
@@ -28,9 +29,9 @@ QUnit.module('check job info list view ', {
 
     },
     afterEach: function () {
-        this.clock.restore();        
+        this.clock.restore();
         this.server.restore();
-        delete window.app;        
+        delete window.app;
     }
 });
 
@@ -42,6 +43,38 @@ QUnit.test('has necessary data', function (assert) {
     assert.ok(this.view.$el.html().includes("image2"), "image name 2");
 });
 
+
+QUnit.test('single expand works', function (assert) {
+    expect(1);
+    this.view.subviews[0].$el.trigger("click");
+    assert.ok(this.view.subviews_e[0].$el.hasClass('show'), "view expanded");
+});
+
+
+QUnit.test('single collapse works', function (assert) {
+    expect(1);
+    this.view.subviews[0].$el.trigger("click");
+    this.view.subviews[0].$el.trigger("click");
+    assert.notOk(this.view.subviews_e[0].$el.hasClass('show'), "view collapsed");
+});
+
+
+QUnit.test('group collapse works', function (assert) {
+    expect(3);
+    this.view.$("#expandButton").trigger("click");
+    this.view.$("#expandButton").trigger("click");
+    assert.notOk(this.view.subviews_e[0].$el.hasClass('show'), "view collapsed");
+    assert.notOk(this.view.subviews_e[1].$el.hasClass('show'), "view collapsed");
+    assert.ok(this.view.$("#expandButton").text().includes("Expand"), "button text expand");
+});
+
+QUnit.test('group expand works', function (assert) {
+    expect(3);
+    this.view.$("#expandButton").trigger("click");
+    assert.ok(this.view.subviews_e[0].$el.hasClass('show'), "view expanded");
+    assert.ok(this.view.subviews_e[1].$el.hasClass('show'), "view expanded");
+    assert.ok(this.view.$("#expandButton").text().includes("Hide"), "button text collapse");
+});
 
 
 /*QUnit.test('calls render on job reset', function (assert) {

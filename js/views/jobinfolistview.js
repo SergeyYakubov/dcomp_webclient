@@ -28,7 +28,7 @@ class JobInfoListView extends Backbone.View {
     }
 
     clearJobs() {
-        for (let i = 0; i < this.subviews.length; i++) {
+        for (let i = this.subviews_e.length - 1; i >= 0; i--) {
             this.subviews_e[i].remove();
             this.subviews[i].remove();
         }
@@ -112,12 +112,11 @@ class JobInfoListView extends Backbone.View {
     }
 
     onClickExpandButton() {
-        for (let i = 0; i < this.subviews_e.length; i++) {
+        for (let i = this.subviews_e.length - 1; i >= 0; i--) {
             this.subviews_e[i].$el.collapse(this.allExpanded ? "hide" : "show");
         }
-        this.allExpanded = !this.allExpanded;
         this.setExpandButtonText();
-    }
+      }
 
     setExpandButtonText() {
         this.$('#expandButton').text(this.allExpanded ? "Hide all details" :
@@ -127,7 +126,7 @@ class JobInfoListView extends Backbone.View {
     updateExpanded() {
         let allCollapsed = true;
         let allExpanded = true;
-        for (let i = 0; i < this.subviews_e.length; i++) {
+        for (let i = this.subviews_e.length - 1; i >= 0; i--) {
             if (this.subviews_e[i].collapsed) {
                 allExpanded = false;
             } else {
