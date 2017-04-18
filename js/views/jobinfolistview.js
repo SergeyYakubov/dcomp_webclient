@@ -9,7 +9,7 @@ class JobInfoListView extends Backbone.View {
 
     initialize() {
         _.bindAll(this, "render", "updateJobs", "addJob", "removeJob",
-                "onClickExpandButton", "onClick");
+                "onClickExpandButton", "onClick", "onClickSelectAll");
         this.template = _.template(require('../../templates/jobinfolist.html'));
         this.jobs = new JobInfos();
         this.listenTo(this.jobs, 'add', this.addJob);
@@ -23,7 +23,9 @@ class JobInfoListView extends Backbone.View {
     get events() {
         return {
             "click": "onClick",
-            "click #expandButton": "onClickExpandButton"
+            "click #expandButton": "onClickExpandButton",
+            "click #joblist_selectall": "onClickSelectAll"
+
         }
     }
 
@@ -116,7 +118,14 @@ class JobInfoListView extends Backbone.View {
             this.subviews_e[i].$el.collapse(this.allExpanded ? "hide" : "show");
         }
         this.setExpandButtonText();
-      }
+    }
+
+    onClickSelectAll() {
+        const isSelected = this.$("#joblist_selectall").is(":checked");
+        for (let i = this.subviews.length - 1; i >= 0; i--) {
+            this.subviews[i].setSelected(isSelected);
+        }
+    }
 
     setExpandButtonText() {
         this.$('#expandButton').text(this.allExpanded ? "Hide all details" :

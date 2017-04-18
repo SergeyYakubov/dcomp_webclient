@@ -37,6 +37,11 @@ class JobInfoView extends Backbone.View {
         cb.prop("checked", !cb.is(":checked"));
     }
 
+    setSelected(select) {
+        const cb = this.$('input[type=checkbox]');
+        cb.prop("checked", select);
+    }
+
     isSelected() {
         const cb = this.$('input[type=checkbox]');
         return cb.is(":checked");
@@ -51,11 +56,11 @@ class JobInfoView extends Backbone.View {
 
         const newElement = $(this.template(_.extend(this.model.attributes,
                 {ID: ID})));
-        
+
         if (this.firstRender) {
             this.setElement(newElement);
         }
-        
+
         this.$el.html(newElement.html());
 
         this.firstRender = false;

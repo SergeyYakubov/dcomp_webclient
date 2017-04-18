@@ -76,6 +76,23 @@ QUnit.test('group expand works', function (assert) {
     assert.ok(this.view.$("#expandButton").text().includes("Hide"), "button text collapse");
 });
 
+QUnit.test('select all works', function (assert) {
+    expect(2);    
+    this.view.$("#joblist_selectall").trigger("click");
+    assert.ok(this.view.subviews[0].isSelected(), "view 1 selected");
+    assert.ok(this.view.subviews[1].isSelected(), "view 1 selected");
+});
+
+QUnit.test('deselect all works', function (assert) {
+    expect(2);   
+    this.view.subviews[0].$(".my_checkbox").click();
+    this.view.subviews[1].$(".my_checkbox").click();
+    this.view.$("#joblist_selectall").trigger("click");
+    this.view.$("#joblist_selectall").trigger("click");    
+    assert.notOk(this.view.subviews[0].isSelected(), "view 1 deselected");
+    assert.notOk(this.view.subviews[1].isSelected(), "view 1 deselected");
+});
+
 
 /*QUnit.test('calls render on job reset', function (assert) {
  this.view.jobs.reset();

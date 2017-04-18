@@ -13,20 +13,20 @@ QUnit.module('check router', {
         this.storageGetItemStub = sinon.stub(window.localStorage, 'getItem');
         this.storageGetItemStub.returns("");
         $("#qunit-fixture").append('<div class = "navcontainer"></div>');
-        
+
         this.fetchstub = sinon.stub(Backbone.Collection.prototype, 'fetch');
-        
-        
+
+
         app.router = new Router();
         Backbone.history.start();
     },
     afterEach: function () {
-        app.router.navigate("", {trigger: false, replace: true});
+        app.router.navigate("/", {trigger: false, replace: true});
         this.storageSetItemStub.restore();
         this.storageGetItemStub.restore();
         Backbone.history.stop();
         this.fetchstub.restore();
-        delete window.app;        
+        delete window.app;
     }
 });
 
@@ -51,7 +51,6 @@ test('job menu is active when logged in', function (assert) {
 });
 
 
-
 test('joblist view is created when navigate to jobs', function (assert) {
     expect(1);
     app.router.navigate("jobs", {trigger: true});
@@ -62,11 +61,21 @@ test('previous view is closed', function (assert) {
     expect(1);
     app.router.navigate("jobs", {trigger: true});
     const view = app.router.currentView;
-    sinon.spy(view,"close");    
+    sinon.spy(view, "close");
     app.router.navigate("about", {trigger: true});
     assert.ok(view.close.calledOnce);
 });
 
+
+test('joblog view is created when navigate to job log', function (assert) {
+    expect(1);
+    const server = sinon.fakeServer.create();
+    server.respondWith([200, {}, ""]);
+    app.router.navigate("logs/:58ee39885e935a404a8a0957", {trigger: true});
+    server.respond();
+    assert.equal(app.router.currentView.constructor.name, "JobLogView", "view  class should be JobLogView");
+    server.restore();
+});
 
 
 QUnit.module();

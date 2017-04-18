@@ -1,6 +1,8 @@
 import LoginState from '../models/loginState';
 import NavbarView from '../views/navbar';
 import JobListView from '../views/joblistview';
+import JobLogView from '../views/jobLogView';
+import JobLog from '../models/jobLog';
 
 class Router extends Backbone.Router {
     get routes() {
@@ -8,6 +10,7 @@ class Router extends Backbone.Router {
             "": "navigateStateBased",
             "jobs": "jobs",
             "about": "about",
+            "logs/:id": "joblog",
         };
     }
 
@@ -35,7 +38,14 @@ class Router extends Backbone.Router {
     about() {
         app.navbarView.selectMenuItem("about-menu");
         this.render(null);
+    }
 
+    joblog(id) {
+        const log = new JobLog();
+        log.set({Id: id});
+
+        const view = new JobLogView({model: log});
+        this.render(view);
     }
 
     render(view) {
