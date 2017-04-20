@@ -1,7 +1,7 @@
-import { make_auth } from '../utils'
+import { make_auth } from '../utils';
 
 
-        class JobLog extends Backbone.Model {
+class JobLog extends Backbone.Model {
     get defaults() {
         return {
             Content: "",
@@ -10,7 +10,7 @@ import { make_auth } from '../utils'
     }
 
     sync() {
-        const url = "/jobs/" + this.id+"/" ;
+        const url = "/jobs/" + this.get("Id") + "/";
         const request = $.ajax({
             type: 'GET',
             url: url,
@@ -18,20 +18,13 @@ import { make_auth } from '../utils'
             data: {log: true},
             headers: {"Authorization": make_auth("", "", app.state.get("token"))},
         });
-        request.done(function (response,status, xhr) {
+        request.done(function (response, status, xhr) {
             this.set({Content: response});
         }.bind(this));
         request.fail(function (xhr, textStatus, errorThrown) {
             this.set({Content: "error reading log file"});
         }.bind(this));
-
-
     }
-
-    get idAttribute() {
-        return "Id"
-    }
-
 }
 ;
 export default JobLog;

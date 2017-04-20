@@ -2,7 +2,10 @@
     <td colspan="4">
         <%= StatusString %>
         <%= Id %>
-        <a class="nav-link" href="#logs/<%=Id%>">Logfile</a>
+        <div class="d-flex">
+        <a class="btn btn-link loglink" role="button" href="#logs/<%=Id%>">Logfiles</a>
+        <button type="button" class="btn btn-link joblink">Job files</button>        
+        </div>
     </td>
 </tr>
 

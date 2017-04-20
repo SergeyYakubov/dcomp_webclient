@@ -53,7 +53,7 @@ class JobInfoListView extends Backbone.View {
                 if (response == null) {
                     this.jobs.set([]);
                 }
-                this.loginTimer = setTimeout(this.updateJobs, 1000);
+                //this.loginTimer = setTimeout(this.updateJobs, 1000);
                 this.SuccessUpdate = true;
                 if (this.resetjobs) {
                     this.resetjobs = false;

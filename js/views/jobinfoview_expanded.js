@@ -1,5 +1,8 @@
 import JobInfo from '../models/job';
+import JobFiles from '../models/jobFiles';
+
 import 'bootstrap';
+
 
 class JobInfoViewExtended extends Backbone.View {
 
@@ -7,15 +10,22 @@ class JobInfoViewExtended extends Backbone.View {
         return {
             "hidden.bs.collapse": "onCollapse",
             "shown.bs.collapse": "onExpand",
+            "click .joblink": "onJobFilesClick",
+
         }
     }
 
     initialize() {
-        _.bindAll(this, "render", "onCollapse", "onExpand");
+        _.bindAll(this, "render", "onCollapse", "onExpand", "onJobFilesClick");
         this.listenTo(this.model, 'change', this.render);
         this.template = _.template(require('../../templates/jobinfo_expanded.html'));
         this.firstRender = true;
         this.collapsed = true;
+    }
+
+    onJobFilesClick() {
+        const jobfiles = new JobFiles({Id: this.model.get("Id")});
+        jobfiles.sync();
     }
 
     onCollapse() {
