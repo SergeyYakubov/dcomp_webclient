@@ -55,7 +55,7 @@ class JobInfoView extends Backbone.View {
         const ID = this.model.get("JobName") || "... " + this.model.get("Id").slice(-3);
 
         const newElement = $(this.template(_.extend(this.model.attributes,
-                {ID: ID})));
+                {ID: ID, Selected: this.isSelected()})));
 
         if (this.firstRender) {
             this.setElement(newElement);

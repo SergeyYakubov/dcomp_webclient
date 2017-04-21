@@ -1,6 +1,6 @@
 import LeftMenuView from './leftmenuview';
 import JobListActionsView from './joblist_actionsview';
-import JobInfoListView from "./jobinfolistview"
+import JobInfoListView from "./jobinfolistview";
 
 class JobListView extends Backbone.View {
 
@@ -26,7 +26,8 @@ class JobListView extends Backbone.View {
 
         this.appendSubView(new LeftMenuView(), "left-menu");
         this.appendSubView(new LeftMenuView(), "job-filter");
-        this.appendSubView(new JobInfoListView(), "job-list");
+        this.jobInfoListView = new JobInfoListView();
+        this.appendSubView(this.jobInfoListView, "job-list");
         this.appendSubView(new JobListActionsView(), "actions-panel");
 
         return this;
@@ -53,9 +54,11 @@ class JobListView extends Backbone.View {
     }
 
     onKillJob() {
+        this.jobInfoListView.sendStopCommandForSelectedJobs();
     }
 
     onRemoveJob() {
+        this.jobInfoListView.sendRemoveCommandForSelectedJobs();
     }
 
 }

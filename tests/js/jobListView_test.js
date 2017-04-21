@@ -11,15 +11,12 @@ QUnit.module('check joblistview', {
         window.app = {state: new LoginState()};
         $("#qunit-fixture").append('<div class = "maincontainer"></div>');
 
-
-        this.killstub = sinon.stub(JobListView.prototype, 'onKillJob');
-        this.removestub = sinon.stub(JobListView.prototype, 'onRemoveJob');
-                
+              
         this.fetchstub = sinon.stub(Backbone.Collection.prototype, 'fetch');                
         this.jobListView = new JobListView();
         this.jobListView.render();
-
-
+        this.killstub = sinon.stub(this.jobListView.jobInfoListView, 'sendStopCommandForSelectedJobs');
+        this.removestub = sinon.stub(this.jobListView.jobInfoListView, 'sendRemoveCommandForSelectedJobs');
 
     },
     afterEach: function () {
