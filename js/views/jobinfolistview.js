@@ -14,10 +14,15 @@ class JobInfoListView extends Backbone.View {
         this.jobs = new JobInfos();
         this.listenTo(this.jobs, 'add', this.addJob);
         this.listenTo(this.jobs, 'remove', this.removeJob);
+        this.listenTo(this.model, 'change:from', this.onFilterChange);
         this.subviews = [];
         this.subviews_e = [];
         this.resetjobs = true;
         this.updateJobs();
+    }
+
+    onFilterChange() {
+        this.updateJobs()
     }
 
     get events() {
@@ -44,7 +49,7 @@ class JobInfoListView extends Backbone.View {
 
     updateJobs() {
         this.jobs.fetch({
-            data: {finished: true},
+            data: this.model.attributes,
             reset: this.resetjobs,
             merge: true,
             headers: {'Authorization': app.state.get("token")},

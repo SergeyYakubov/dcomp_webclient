@@ -30,6 +30,7 @@ QUnit.module('check router', {
     }
 });
 
+
 test('router initilalized', function (assert) {
     expect(1);
     assert.ok(app.navbarView.$("#loginButton").html().includes("login"), "login button");
@@ -56,6 +57,14 @@ test('joblist view is created when navigate to jobs', function (assert) {
     app.router.navigate("jobs", {trigger: true});
     assert.equal(app.router.currentView.constructor.name, "JobListView", "view  class should be JobListView");
 });
+
+
+test('newjob view is created when navigate to newjob', function (assert) {
+    expect(1);
+    app.router.navigate("newjob", {trigger: true});
+    assert.equal(app.router.currentView.constructor.name, "NewJobView", "view  class should be NewJobView");
+});
+
 
 test('previous view is closed', function (assert) {
     expect(1);

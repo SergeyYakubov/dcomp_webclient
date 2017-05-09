@@ -11,7 +11,6 @@ QUnit.module('check joblistview', {
         window.app = {state: new LoginState()};
         $("#qunit-fixture").append('<div class = "maincontainer"></div>');
 
-              
         this.fetchstub = sinon.stub(Backbone.Collection.prototype, 'fetch');                
         this.jobListView = new JobListView();
         this.jobListView.render();
@@ -27,10 +26,12 @@ QUnit.module('check joblistview', {
     }
 });
 
+
 test('jobListView contains necessary data', function (assert) {
-    expect(8);
+    expect(9);
     assert.strictEqual(this.jobListView.subviews.length, 4, "should have 4 subviews")
     assert.strictEqual(this.jobListView.subviews[0].constructor.name, "LeftMenuView", "left menu included");
+    assert.strictEqual(this.jobListView.subviews[1].constructor.name, "JobFilterView", "job filter included");    
     assert.strictEqual(this.jobListView.subviews[2].constructor.name, "JobInfoListView", "job list included");    
     assert.strictEqual(this.jobListView.subviews[3].constructor.name, "JobListActionsView", "actions menu included");
     assert.ok(this.jobListView.$(".container-fluid").html().includes("actions-panel"), "actions-panel");
@@ -64,7 +65,6 @@ test('on remove job calls function', function (assert) {
     assert.ok(this.removestub.calledOnce);
 
 });
-
 
 
 QUnit.module();

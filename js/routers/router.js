@@ -3,12 +3,16 @@ import NavbarView from '../views/navbar';
 import JobListView from '../views/joblistview';
 import JobLogView from '../views/jobLogView';
 import JobLog from '../models/jobLog';
+import NewJobView from '../views/newJobView';
+
+
 
 class Router extends Backbone.Router {
     get routes() {
         return {
             "": "navigateStateBased",
             "jobs": "jobs",
+            "newjob": "newjob",
             "about": "about",
             "logs/:id": "joblog",
         };
@@ -32,6 +36,12 @@ class Router extends Backbone.Router {
     jobs() {
         app.navbarView.selectMenuItem("jobs-menu");
         const view = new JobListView();
+        this.render(view);
+    }
+    
+    newjob() {
+        app.navbarView.selectMenuItem("jobs-menu");
+        const view = new NewJobView();
         this.render(view);
     }
 

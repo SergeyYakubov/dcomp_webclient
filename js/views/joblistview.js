@@ -1,6 +1,10 @@
 import LeftMenuView from './leftmenuview';
 import JobListActionsView from './joblist_actionsview';
 import JobInfoListView from "./jobinfolistview";
+import JobFilterView from './jobFilterView.js';
+import JobFilter from '../models/jobFilter.js';
+
+
 
 class JobListView extends Backbone.View {
 
@@ -25,8 +29,11 @@ class JobListView extends Backbone.View {
         this.$el.html(this.template({}));
 
         this.appendSubView(new LeftMenuView(), "left-menu");
-        this.appendSubView(new LeftMenuView(), "job-filter");
-        this.jobInfoListView = new JobInfoListView();
+        const filter = new JobFilter();
+
+        this.appendSubView(new JobFilterView({model: filter}), "job-filter");
+        
+        this.jobInfoListView = new JobInfoListView({model: filter});
         this.appendSubView(this.jobInfoListView, "job-list");
         this.appendSubView(new JobListActionsView(), "actions-panel");
 
