@@ -20,7 +20,7 @@ class JobListView extends Backbone.View {
     }
 
     initialize() {
-        _.bindAll(this, "render", "close", "onKillJob");
+        _.bindAll(this, "render", "close", "onKillJob", "onRemoveJob");
         this.template = _.template(require('../../templates/joblist.html'));
         this.subviews = [];
     }
@@ -32,7 +32,7 @@ class JobListView extends Backbone.View {
         const filter = new JobFilter();
 
         this.appendSubView(new JobFilterView({model: filter}), "job-filter");
-        
+
         this.jobInfoListView = new JobInfoListView({model: filter});
         this.appendSubView(this.jobInfoListView, "job-list");
         this.appendSubView(new JobListActionsView(), "actions-panel");
@@ -56,8 +56,9 @@ class JobListView extends Backbone.View {
     close() {
         this.removeSubViews();
 // we don't call remove as this would delete .maincontainer element
-        this.$el.empty().off(); /* off to unbind the events */
+        this.undelegateEvents();
         this.stopListening();
+        this.$el.empty();
     }
 
     onKillJob() {

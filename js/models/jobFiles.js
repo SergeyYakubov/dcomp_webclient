@@ -28,14 +28,17 @@ class JobFiles extends Backbone.Model {
 
     downloadFiles(srv, token) {
         let srvname;
+        console.log(srv.Host);
         if (srv.Host == "localhost") {
             srvname = "localdmd";
+        } else if (srv.Host == "max-wgs001") {
+            srvname = "maxwell";
         }
         const url = srvname + "/jobfile/" + this.get("Id") + "/?path=" +
                 encodeURIComponent("/") + "&nameonly=false";
-        
+
         document.cookie = "Authorization=" + token;
-        
+
         this.EmulateDownloadLinkClick(url);
 
     }
@@ -47,7 +50,7 @@ class JobFiles extends Backbone.Model {
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
-        
+
     }
 
 }

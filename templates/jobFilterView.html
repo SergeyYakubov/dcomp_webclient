@@ -1,8 +1,80 @@
-<div class="card mt-2">
+<div class="card mt-1">
     <div class="card-block">
-        <div class="d-flex justify-content-between flex-row">
-            <h5 class="align-self-center text-info">Job filter</h5>
-        </div>
+        <form>
+
+            <div class="d-flex justify-content-between flex-row mb-3">
+                <h5 class="align-self-center text-info">Job filter</h5>
+                <button class="btn btn-info btn-sm" id="updatFilter" type="submit"
+                        style="font-size : 0.75rem;">
+                    Update view
+                </button>
+            </div>
+
+            <div class="form-group row mb-1">
+                <label class="col-sm-2 col-form-label form-control-sm">Period</label>
+
+                <div class="col-sm-10 form-inline mb-1">
+                    <div class="form-check form-control-sm ">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="optionsDate" id="filterFromTo" value="option1">
+                            From                            
+                        </label>
+
+                    </div>
+                    <input class="form-control form-control-sm col-sm-3 ml-sm-1 mr-sm-1" type="date"  id="from">
+                    <label class="form-control-sm" for="to" >To</label>
+                    <input class="form-control form-control-sm col-sm-3 ml-sm-1 mr-sm-1" type="date"  id="to">
+
+                </div>
+            </div>
+            <div class="form-group row mb-1">
+
+                <div class="col-sm-10 form-inline offset-sm-2">
+                    <div class="form-check form-control-sm ">
+                        <label class="form-check-label">
+                            <input class="form-check-input " type="radio" name="optionsDate" id="filterLast" value="option1" checked>
+                            Last
+                        </label>
+                    </div>
+                    <input class="form-control form-control-sm  ml-sm-1 mr-sm-1" type="number"  id="last">
+                    <label class="form-control-sm" for="last">days</label>
+                </div>
+            </div>
+
+            <div class="form-group row mb-1">    
+                <label class="col-sm-2 col-form-label form-control-sm">Status</label>
+
+                <div class="col-sm-10 form-inline">
+                    <div class="form-check form-control-sm">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="optionsStatus" id="filterStatusAll" value="option1" checked>
+                            All
+                        </label>
+                    </div>
+
+                    <div class="form-check form-control-sm">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="radio" name="optionsStatus" id="filterStatusFinished" value="option1">
+                            Finished
+                        </label>
+                    </div>
+                    <div class="form-check form-control-sm">
+                        <label class="form-check-label">
+                            <input class="form-check-input " type="radio" name="optionsStatus" id="filterStatusNotFinished" value="option1">
+                            Unfinished
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-group row mb-0">
+                <label for="filterKeyword" class="col-sm-2 col-form-label form-control-sm">Keyword</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control form-control-sm" id="filterKeyword">
+                </div>
+            </div>        
+        </form>
     </div>
 
 </div>
