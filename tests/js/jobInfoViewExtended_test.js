@@ -21,8 +21,7 @@ QUnit.module('check job info view expanded ', {
             Status: "Pending",
             StartTime: "start",
             EndTime: "end",
-            Message: "message"
-
+            Message: "message",
         });
         this.view = new JobInfoViewExtended({model: this.job});
         $(".joblist").append(this.view.el);

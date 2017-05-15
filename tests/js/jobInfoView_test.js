@@ -17,7 +17,6 @@ QUnit.module('check job info view ', {
             StartTime: "start",
             EndTime: "end",
             Message: "message"
-
         });
         this.view = new JobInfoView({model: this.job});
         $(".joblist").append(this.view.el);

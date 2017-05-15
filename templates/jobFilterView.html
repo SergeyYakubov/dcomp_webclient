@@ -16,14 +16,19 @@
                 <div class="col-sm-10 form-inline mb-1">
                     <div class="form-check form-control-sm ">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="optionsDate" id="filterFromTo" value="option1">
-                            From                            
+                            <input class="form-check-input" type="radio" 
+                                   <% if (from!="") { %> checked <% } %>
+                                   name="optionsDate" id="filterFromTo" 
+                                   value="periodFromTo">
+                                   From                            
                         </label>
 
                     </div>
-                    <input class="form-control form-control-sm col-sm-3 ml-sm-1 mr-sm-1" type="date"  id="from">
+                    <input class="form-control form-control-sm col-sm-3 ml-sm-1 mr-sm-1" 
+                           type="text" value="<%= from %>" id="from" readonly>
                     <label class="form-control-sm" for="to" >To</label>
-                    <input class="form-control form-control-sm col-sm-3 ml-sm-1 mr-sm-1" type="date"  id="to">
+                    <input class="form-control form-control-sm col-sm-3 ml-sm-1 mr-sm-1" 
+                           type="text" value="<%= to %>" id="to" readonly>
 
                 </div>
             </div>
@@ -32,11 +37,21 @@
                 <div class="col-sm-10 form-inline offset-sm-2">
                     <div class="form-check form-control-sm ">
                         <label class="form-check-label">
-                            <input class="form-check-input " type="radio" name="optionsDate" id="filterLast" value="option1" checked>
-                            Last
+                            <input class="form-check-input " type="radio" 
+                                   <% if (from=="") { %> checked <% } %>
+                                   name="optionsDate" id="filterLast" 
+                                   value="periodLast">
+                                   Last
                         </label>
                     </div>
-                    <input class="form-control form-control-sm  ml-sm-1 mr-sm-1" type="number"  id="last">
+
+                    <select class="custom-select form-control-sm" id="last">
+                        <option <% if (last=="1") { %> selected <% } %> value="1">1</option>
+                        <option <% if (last=="7") { %> selected <% } %> value="7">7</option>
+                        <option <% if (last=="30") { %> selected <% } %> value="30">30</option>
+                        <option <% if (last=="60") { %> selected <% } %> value="60">60</option>
+                        <option <% if (last=="180") { %> selected <% } %> value="180">180</option>
+                    </select>                    
                     <label class="form-control-sm" for="last">days</label>
                 </div>
             </div>
@@ -47,21 +62,30 @@
                 <div class="col-sm-10 form-inline">
                     <div class="form-check form-control-sm">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="optionsStatus" id="filterStatusAll" value="option1" checked>
-                            All
+                            <input class="form-check-input" type="radio" 
+                                   <% if (!finishedOnly && !notFinishedOnly) { %> checked <% } %>
+                                   name="optionsStatus" id="filterStatusAll" 
+                                   value="statusAll" checked>
+                                   All
                         </label>
                     </div>
 
                     <div class="form-check form-control-sm">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="radio" name="optionsStatus" id="filterStatusFinished" value="option1">
-                            Finished
+                            <input class="form-check-input" type="radio" 
+                                   <% if (finishedOnly) { %> checked <% } %>
+                                   name="optionsStatus" id="filterStatusFinished" 
+                                   value="statusFinished">
+                                   Finished
                         </label>
                     </div>
                     <div class="form-check form-control-sm">
                         <label class="form-check-label">
-                            <input class="form-check-input " type="radio" name="optionsStatus" id="filterStatusNotFinished" value="option1">
-                            Unfinished
+                            <input class="form-check-input " type="radio" 
+                                   <% if (notFinishedOnly) { %> checked <% } %>                                   
+                                   name="optionsStatus" id="filterStatusNotFinished" 
+                                   value="statusNotFinished">
+                                   Unfinished
                         </label>
                     </div>
                 </div>
@@ -71,7 +95,8 @@
             <div class="form-group row mb-0">
                 <label for="filterKeyword" class="col-sm-2 col-form-label form-control-sm">Keyword</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control form-control-sm" id="filterKeyword">
+                    <input type="text" class="form-control form-control-sm" 
+                           id="filterKeyword" value="<%=keyword%>">
                 </div>
             </div>        
         </form>

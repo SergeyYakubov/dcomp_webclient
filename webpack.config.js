@@ -26,11 +26,18 @@ const config = {
         filename: debug ? 'bundle.js' : '[chunkhash].[name].js'
     },
     module: {
-        
+
         rules: [
             {
                 test: /\.html$/,
                 use: ["html-loader"]
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                use: [
+                    'url-loader?limit=10000',
+                    'img-loader'
+                ]
             },
             {
                 test: /\.css$/,
@@ -38,6 +45,7 @@ const config = {
                     use: 'css-loader',
                 })
             },
+
             debug ? {} : {
                 test: /\.js$/,
                 exclude: [/node_modules/],
@@ -99,36 +107,36 @@ const config = {
 //const configTests = {
 //    entry: glob.sync("./tests/js/**/*.js"),
 /*    output: {
-        path: path.resolve(__dirname, 'tests/build'),
-        filename: 'bundle.js'
-    },
-    module: {
-        rules: [
-            {
-                test: /\.html$/,
-                use: ["html-loader"]
-            },
-            {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    use: 'css-loader',
-                })
-            },
-        ],
-    },
-    plugins:
-            [
-                new ExtractTextPlugin('styles.css'),
-                new CleanWebpackPlugin(['tests/build'], {
-                }),
-                commonPackages,
-            ]
-
-
-}
-
-
-module.exports = [config,configTests];
-*/
+ path: path.resolve(__dirname, 'tests/build'),
+ filename: 'bundle.js'
+ },
+ module: {
+ rules: [
+ {
+ test: /\.html$/,
+ use: ["html-loader"]
+ },
+ {
+ test: /\.css$/,
+ use: ExtractTextPlugin.extract({
+ use: 'css-loader',
+ })
+ },
+ ],
+ },
+ plugins:
+ [
+ new ExtractTextPlugin('styles.css'),
+ new CleanWebpackPlugin(['tests/build'], {
+ }),
+ commonPackages,
+ ]
+ 
+ 
+ }
+ 
+ 
+ module.exports = [config,configTests];
+ */
 
 module.exports = config;

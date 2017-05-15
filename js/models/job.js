@@ -10,7 +10,8 @@ class JobInfo extends Backbone.Model {
             StartTime: "",
             EndTime: "",
             Message: "",
-            Id: ""
+            Id: "",
+            SubmitTime:""
         }
     }
 

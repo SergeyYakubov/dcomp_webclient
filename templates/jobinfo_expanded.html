@@ -1,7 +1,9 @@
 <tr class="no-hover collapse <%= collapsed?'':'show' %>" id="<%=Id%>">
     <td colspan="4">
-        <%= StatusString %>
-        <%= Id %>
+        Status: <%= StatusString %>
+        ID: <%= Id %>
+        Submitted: <%= SubmitTime %>
+        
         <div class="d-flex">
         <a class="btn btn-link loglink" role="button" href="#logs/<%=Id%>">Logfiles</a>
         <button type="button" class="btn btn-link joblink">Job files</button>        
