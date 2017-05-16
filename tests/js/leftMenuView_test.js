@@ -14,10 +14,8 @@ QUnit.module('check leftmenu', {
 });
 
 test('left menu contains necessary data', function (assert) {
-    expect(4);
-    assert.ok(this.leftMenu.$el.html().includes("List"), "job list");
+    expect(2);
     assert.ok(this.leftMenu.$el.html().includes("New"), "new job");
-    assert.ok(this.leftMenu.$el.html().includes("#jobs"), "job list link");
     assert.ok(this.leftMenu.$el.html().includes("#newjob"), "new job link");
     
 });
