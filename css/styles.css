@@ -90,3 +90,22 @@ table tbody tr:nth-child(4n+4)
     overflow:auto ;
     max-height: 75vh;
 }
+
+.newjobform.list-group-item {
+    padding: 5px 15px; /* adjust here */
+    margin-bottom: -1px;
+    border: 1.5px #ddd;
+    border-style: solid none solid none;
+    line-height: 1.5em /* set to text height */
+}
+
+.newjobform.list-group-item.active {
+    background-color: #eee;
+    color: black;
+}
+
+.modal-lg{
+    max-width:90%;
+    width:90%;
+
+}

@@ -15,13 +15,40 @@ class NewJobForm extends Backbone.View {
 
     get events() {
         return  {
-            'submit': 'onSubmit',
-            'hidden.bs.modal': 'onClose'
+            'click #newJobSubmit': 'onClickSubmit',
+            'click #newJobPrev': 'onClickPrev',
+            'click #newJobNext': 'onClickNext',
+            'hidden.bs.modal': 'onClose',
+            "click": "onClick",
+
         }
     }
 
+    onClickPrev() {
+        const index = this.$('button.active').parent().index() - 1;
+        if (index < 0)
+            return;
+        const el = this.$('#stepsList li')[index];
+        $("button", el).click();
+
+    }
+
+    onClickNext() {
+        const index = this.$('button.active').parent().index() + 1;
+        const size= this.$('#stepsList li').length
+        if (index > size-1)
+            return;
+        const el = this.$('#stepsList li')[index];
+        $("button", el).click();
+
+    }
+
+    onClick() {
+        this.$("button").blur();
+    }
+
     initialize() {
-        _.bindAll(this, 'render', 'onSubmit', 'show', 'close', 'onClose');
+        _.bindAll(this, 'render', 'show', 'close', 'onClose');
         this.template = _.template(require('../../templates/newJob_form.html'));
         this.render();
     }
@@ -31,12 +58,16 @@ class NewJobForm extends Backbone.View {
         return this;
     }
 
-    onSubmit(e) {
-        e.preventDefault();
+    onClickSubmit() {
+        //this.$el.modal("hide");
+
     }
 
     show() {
-        this.$el.modal("show");
+        this.$el.modal({
+            backdrop: 'static', // This disable for click outside event
+            keyboard: false, // This for keyboard event
+        }, "show");
     }
 
     close() {

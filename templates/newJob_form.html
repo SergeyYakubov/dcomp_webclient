@@ -1,4 +1,4 @@
-<div class="modal-dialog" role="document">
+<div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title">Submit New Job</h5>
@@ -7,8 +7,57 @@
             </button>
         </div>
         <div class="modal-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4">
+                        <ul class="nav nav-pills flex-column" role="tablist" id="stepsList">
+                            <li class="nav-item">
+                                <button type="button" 
+                                        class="newjobform list-group-item 
+                                        list-group-item-action active"
+                                        data-toggle="tab"
+                                        href="#home" >
+                                    Step 1
+                                </button>
+                            </li>
+                            <li class="nav-item">
+                                <button type="button" 
+                                        class="newjobform list-group-item
+                                        list-group-item-action"
+                                        data-toggle="tab"
+                                        href="#profile" >
+                                    Step 2
+                                </button>
+                            </li>
+                        </ul>
 
+
+                    </div>
+                    <div class="col-8">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="home" role="tabpanel">text1</div>
+                            <div class="tab-pane" id="profile" role="tabpanel">text2</div>
+                        </div>                        
+                    </div>
+
+                </div>
+
+                <footer class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-sm btn-success" 
+                            data-dismiss="modal">
+                        Cancel
+                    </button>
+                    <div>
+                        <button type="button" id="newJobPrev" class="btn btn-sm btn-success">Prev</button>
+                        <button type="button" id="newJobNext" class="btn btn-sm btn-success">Next</button>
+
+                    </div>
+                    <button type="submit" id="newJobSubmit" class="btn btn-sm btn-success">Submit</button>   
+                </footer>
+
+            </div>
         </div>
-
     </div>
 </div>
+
+
