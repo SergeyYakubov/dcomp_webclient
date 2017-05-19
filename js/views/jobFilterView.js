@@ -13,7 +13,13 @@ class JobFilterView extends Backbone.View {
     get events() {
         return  {
             'submit': 'onSubmit',
+            "click": "onClick",
+            
         }
+    }
+
+    onClick() {
+        this.$("button").blur();
     }
 
     onSubmit(e) {

@@ -59,13 +59,6 @@ test('joblist view is created when navigate to jobs', function (assert) {
 });
 
 
-test('newjob view is created when navigate to newjob', function (assert) {
-    expect(1);
-    app.router.navigate("newjob", {trigger: true});
-    assert.equal(app.router.currentView.constructor.name, "NewJobView", "view  class should be NewJobView");
-});
-
-
 test('previous view is closed', function (assert) {
     expect(1);
     app.router.navigate("jobs", {trigger: true});

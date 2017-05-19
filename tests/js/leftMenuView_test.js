@@ -14,11 +14,18 @@ QUnit.module('check leftmenu', {
 });
 
 test('left menu contains necessary data', function (assert) {
-    expect(2);
-    assert.ok(this.leftMenu.$el.html().includes("New"), "new job");
-    assert.ok(this.leftMenu.$el.html().includes("#newjob"), "new job link");
+    expect(1);
+    assert.ok(this.leftMenu.$("#newJob").text().includes("Job"), "new job button");
     
 });
+
+test('New Job click opens form', function (assert) {
+    expect(1);
+    this.leftMenu.$("#newJob").click();
+    assert.ok(this.leftMenu.newJobForm.$el.is(":visible"), "form is open");
+    this.leftMenu.newJobForm.close();
+});
+
 
 
 QUnit.module();
