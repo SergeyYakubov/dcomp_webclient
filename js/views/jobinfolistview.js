@@ -44,10 +44,6 @@ class JobInfoListView extends Backbone.View {
         this.subviews_e.length = 0;
     }
 
-//    changedCollection() {
-//        console.log("changed");
-//    }
-
     updateJobs() {
         this.jobs.fetch({
             data: this.model.attributes,

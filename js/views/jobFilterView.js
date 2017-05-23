@@ -46,8 +46,6 @@ class JobFilterView extends Backbone.View {
         } else if (optionsStatus == "statusNotFinished") {
             notFinishedOnly = true;
         }
-        console.log(from, to)
-
         this.model.set({
             from: from,
             to: to,

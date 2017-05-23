@@ -31,7 +31,6 @@ QUnit.module('check job files model', {
 
 });
 
-/*
 
 QUnit.test('sync calls downloadFiles when called with correct url', function (assert) {
     expect(1);
@@ -75,6 +74,6 @@ QUnit.test('check downloadFiles', function (assert) {
     stub.restore();
 });
 
-*/
+
 
 QUnit.module();

@@ -14,30 +14,51 @@
                             <li class="nav-item">
                                 <button type="button" 
                                         class="newjobform list-group-item 
-                                        list-group-item-action active"
-                                        data-toggle="tab"
-                                        href="#home" >
-                                    Step 1
+                                        list-group-item-action active" 
+                                        data-toggle="tab" 
+                                        role="tab" 
+                                        data-target="#tab1" >
+                                    Application
                                 </button>
                             </li>
                             <li class="nav-item">
                                 <button type="button" 
                                         class="newjobform list-group-item
-                                        list-group-item-action"
-                                        data-toggle="tab"
-                                        href="#profile" >
-                                    Step 2
+                                        list-group-item-action" 
+                                        data-toggle="tab" 
+                                        role="tab" 
+                                        data-target="#tab2" >
+                                    Data
                                 </button>
                             </li>
+                            <li class="nav-item">
+                                <button type="button" 
+                                        class="newjobform list-group-item
+                                        list-group-item-action" 
+                                        data-toggle="tab" 
+                                        role="tab" 
+                                        data-target="#tab3" >
+                                    Resources
+                                </button>
+                            </li>
+
                         </ul>
 
 
                     </div>
                     <div class="col-8">
+
                         <div class="tab-content">
-                            <div class="tab-pane active" id="home" role="tabpanel">text1</div>
-                            <div class="tab-pane" id="profile" role="tabpanel">text2</div>
-                        </div>                        
+                            <div class="tab-pane active" id="tab1" role="tabpanel">
+                                <%= applicationForm %>
+                            </div>
+                            <div class="tab-pane" id="tab2" role="tabpanel">
+                                <%= dataForm %>
+                            </div>
+                            <div class="tab-pane" id="tab3" role="tabpanel">
+                                <%= resourcesForm %>
+                            </div>
+                        </div>
                     </div>
 
                 </div>

@@ -3,16 +3,21 @@ class JobInfo extends Backbone.Model {
         return {
             ImageName: "",
             Script: "",
-            NCPUs: 1,
-            NNodes: 0,
+            NCPUs: 0,
+            NNodes: 1,
             Resource: "",
             StatusString: "",
             StartTime: "",
             EndTime: "",
             Message: "",
             Id: "",
-            SubmitTime:""
+            SubmitTime: "",
+            JobName: "",
         }
+    }
+
+    submitToServer() {
+        return "";
     }
 
     get idAttribute() {

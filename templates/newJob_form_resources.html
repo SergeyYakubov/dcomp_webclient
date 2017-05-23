@@ -1,0 +1,20 @@
+<form id="step3">
+    <div class="form-group">
+        <label for="jobNCPUs">Number of Cores</label>
+        <input type="number" min="1" class="form-control" id="jobNCPUs">
+    </div>
+    <div class="form-group">
+        <label for="jobNNodes">* Number of Nodes</label>
+        <input type="number" min="1" class="form-control" id="jobNNodes" value="1">
+    </div>
+    <div class="form-group">
+        <div >
+            <label for="jobResource">Resource</label>
+        </div>
+        <select class="custom-select" id="jobResource">
+            <option value="" selected>Select resource</option>
+            <option value="Local">Local</option>
+            <option value="Maxwell">Maxwell</option>
+        </select>   
+    </div>
+</form>

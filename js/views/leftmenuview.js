@@ -1,4 +1,5 @@
 import NewJobForm from './newJobFormView';
+import JobInfo from '../models/job';
 
 class LeftMenuView extends Backbone.View {
 
@@ -20,7 +21,8 @@ class LeftMenuView extends Backbone.View {
     }
 
     onNewJobClick() {
-        this.newJobForm = new NewJobForm();
+        const job = new JobInfo();
+        this.newJobForm = new NewJobForm({model:job});
         this.newJobForm.show();
     }
     render() {

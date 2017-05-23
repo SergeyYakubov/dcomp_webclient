@@ -28,7 +28,6 @@ class JobFiles extends Backbone.Model {
 
     downloadFiles(srv, token) {
         let srvname;
-        console.log(srv.Host);
         if (srv.Host == "localhost") {
             srvname = "localdmd";
         } else if (srv.Host == "max-wgs001") {

@@ -19,6 +19,7 @@ test('left menu contains necessary data', function (assert) {
     
 });
 
+
 test('New Job click opens form', function (assert) {
     expect(1);
     this.leftMenu.$("#newJob").click();
