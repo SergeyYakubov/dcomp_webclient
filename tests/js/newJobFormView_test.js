@@ -18,7 +18,7 @@ QUnit.module('check new job form', {
         this.newJobForm.$('#script').val("TestScript");
         this.newJobForm.$('#jobNCPUs').val("2");
         this.newJobForm.$('#jobNNodes').val("3");
-        this.newJobForm.$('#jobResource').val("Maxwell");
+        this.newJobForm.$('#jobResource').val("maxwell");
     },
     afterEach: function () {
         this.newJobForm.close();
@@ -36,21 +36,25 @@ test('new job form update model works', function (assert) {
     assert.strictEqual(model.get("NCPUs"), 2, "NCPUs");
     assert.strictEqual(model.get("NNodes"), 3, "NNodes");
     assert.strictEqual(model.get("JobName"), "TestName", "JobName");
-    assert.strictEqual(model.get("Resource"), "Maxwell", "Resource");
+    assert.strictEqual(model.get("Resource"), "maxwell", "Resource");
 });
 
 
 test('new job form submit calls server', function (assert) {
-    expect(2);
+    expect(3);
 
-    const stub = sinon.stub(this.newJobForm.model, 'submitToServer').returns("");
+    const stub = sinon.stub(this.newJobForm.model, 'submitToServer').callsArgWith(0, "");
+    
     this.newJobForm.$("#newJobSubmit").click();
 
     assert.ok(stub.calledOnce, "submit new job");
     stub.restore();
-    
-    assert.ok(_.isEmpty(this.newJobForm.$el.data()),"form cleared");
-    
+
+    assert.ok(_.isEmpty(this.newJobForm.$el.data()), "form cleared");
+
+    assert.strictEqual(this.newJobForm.model.get("ImageName"), "TestImage", "Modele updated");
+
+
 
 });
 
@@ -60,15 +64,16 @@ test('new job form wrong submit shows message', function (assert) {
 
     const alertStub = sinon.stub(window, 'alert');
 
-    const stub = sinon.stub(this.newJobForm.model, 'submitToServer').returns("Error Happened");
+    const stub = sinon.stub(this.newJobForm.model, 'submitToServer').
+            callsArgWith(0, "Error Happened");
     this.newJobForm.$("#newJobSubmit").click();
 
-    assert.ok(stub.calledOnce,"submit new job");
+    assert.ok(stub.calledOnce, "submit new job");
 
     stub.restore();
 
 
-    assert.ok(alertStub.calledWith("Cannot submit job: Error Happened"),"alert called");
+    assert.ok(alertStub.calledWith("Cannot submit job: Error Happened"), "alert called");
     alertStub.restore();
 
 

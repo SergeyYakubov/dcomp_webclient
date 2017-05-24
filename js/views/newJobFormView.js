@@ -126,13 +126,15 @@ class NewJobForm extends Backbone.View {
         if (!this.checkAllForms()) {
             return;
         }
+        this.updateModel();
 
-        const res = this.model.submitToServer()
-        if (res == "") {
-            this.$el.modal("hide");
-        } else {
-            alert("Cannot submit job: " + res);
-        }
+        this.model.submitToServer(function (res) {
+            if (res == "") {
+                this.$el.modal("hide");
+            } else {
+                alert("Cannot submit job: " + res);
+            }
+        }.bind(this));
     }
 
     show() {
