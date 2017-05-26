@@ -36,7 +36,7 @@ class Router extends Backbone.Router {
         const view = new JobListView();
         this.render(view);
     }
-    
+
     about() {
         app.navbarView.selectMenuItem("about-menu");
         this.render(null);

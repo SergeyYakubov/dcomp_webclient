@@ -19,11 +19,12 @@ class JobInfoListView extends Backbone.View {
         this.subviews_e = [];
         this.resetjobs = true;
         this.updateJobs();
-        this.stopTimer = false;
+        this.stopTimerFlag = false;
     }
 
     onFilterChange() {
-        this.updateJobs()
+        this.removeTimer();
+        this.updateJobs();
     }
 
     get events() {
@@ -55,8 +56,8 @@ class JobInfoListView extends Backbone.View {
                 if (response == null) {
                     this.jobs.set([]);
                 }
-                if (!this.stopTimer) {
-                    this.loginTimer = setTimeout(this.updateJobs, 1000);
+                if (!this.stopTimerFlag) {
+                    this.startTimer();
                 }
                 this.SuccessUpdate = true;
                 if (this.resetjobs) {
@@ -65,15 +66,28 @@ class JobInfoListView extends Backbone.View {
                 }
             }.bind(this),
             error: function (model, xhr, options) {
+                if (xhr.status === 401)
+                {
+                    app.state.logout();
+                    return;
+                }
                 this.SuccessUpdate = false;
-                this.resetTimer();
+                if (!this.stopTimerFlag) {
+                    this.startTimer(10000);
+                }
                 this.resetjobs = true;
                 this.render();
             }.bind(this)
         });
     }
 
-    resetTimer() {
+    startTimer(interval) {
+        this.stopTimerFlag = false;
+        this.loginTimer = setTimeout(this.updateJobs, interval || 1000);
+    }
+
+    removeTimer() {
+        this.stopTimerFlag = true;
         if (this.loginTimer) {
             clearTimeout(this.loginTimer);
             delete this.loginTimer;
@@ -111,8 +125,7 @@ class JobInfoListView extends Backbone.View {
     }
 
     remove() {
-        this.stopTimer = true;
-        this.resetTimer();
+        this.removeTimer();
         this.clearJobs();
         super.remove();
     }
@@ -162,16 +175,20 @@ class JobInfoListView extends Backbone.View {
     }
 
     sendStopCommandForSelectedJobs() {
+        this.removeTimer();
         this.subviews.filter(val => val.isSelected()).forEach(val =>
             val.model.stopJob()
         );
-
+        this.startTimer();
     }
 
     sendRemoveCommandForSelectedJobs() {
+        console.log(this.subviews);
+        this.removeTimer();
         this.subviews.filter(val => val.isSelected()).forEach(val =>
             val.model.removeJob()
         );
+        this.startTimer();
     }
 }
 

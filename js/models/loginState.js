@@ -1,6 +1,6 @@
 import { make_auth } from '../utils'
 
-class LoginState extends Backbone.Model {
+        class LoginState extends Backbone.Model {
     get defaults() {
         return {
             logged: false,
@@ -23,7 +23,7 @@ class LoginState extends Backbone.Model {
         }
 
         this.set(state);
-        this.login("", "", state.token);
+        this.login("", "", state.token, true);
     }
 
     reset() {
@@ -36,8 +36,10 @@ class LoginState extends Backbone.Model {
         localStorage.setItem("state", "");
     }
 
-    login(user, passwd, token) {
+    login(user, passwd, token, wait) {
+
         const request = $.ajax({
+            async: !wait,
             type: 'GET',
             url: 'login/',
             dataType: 'json',
@@ -52,7 +54,7 @@ class LoginState extends Backbone.Model {
             localStorage.setItem("state", JSON.stringify(newstate));
             this.set(newstate);
             if (response.ValidityTime > 0) {
-                this.loginTimer = setTimeout(_.bind(this.login,this),                
+                this.loginTimer = setTimeout(_.bind(this.login, this),
                         response.ValidityTime * 60000 - 10000,
                         "", "", response.Token);
             }

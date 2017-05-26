@@ -17,8 +17,9 @@ class JobLogView extends Backbone.View {
 
     close() {
 // we don't call remove as this would delete .maincontainer element
-        this.$el.empty().off(); /* off to unbind the events */
+        this.undelegateEvents();
         this.stopListening();
+        this.$el.empty();
     }
 
 }
