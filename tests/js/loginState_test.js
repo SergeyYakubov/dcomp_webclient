@@ -1,9 +1,6 @@
 import LoginState from '../../js/models/loginState';
 import sinon from 'sinon';
 
-
-
-
 QUnit.module('check login model', {
     beforeEach: function () {
         this.server = sinon.fakeServer.create();
@@ -159,7 +156,11 @@ QUnit.test('login with saved token', function (assert) {
     const stub = sinon.stub(window.localStorage, 'getItem').
             returns(JSON.stringify(returnLogin));
 
+// respond should be before call since the call is syncronouis
+    this.responceOK(returnLogin.user, returnLogin.token);
+    
     this.ls.loginWithSavedToken();
+
     assert.strictEqual(this.ls.get("logged"), true, "cannot login");
 
     stub.restore();

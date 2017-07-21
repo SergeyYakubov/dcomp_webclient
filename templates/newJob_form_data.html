@@ -1,10 +1,38 @@
 <form id="step2">
-    <div class="form-group">
-        <label for="jobName">Upload Files</label>
-        <input type="text" class="form-control" id="FileToUpload" disabled>
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active arrow-cursor"
+               data-toggle="tab" 
+               role="tab" 
+               data-target="#step2tab1">
+                Upload Files
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link arrow-cursor"
+               data-toggle="tab" 
+               role="tab" 
+               data-target="#step2tab2">
+                Mount Files
+            </a>
+        </li>
+    </ul>    
+
+    <div class="tab-content mt-2">
+        <div class="tab-pane active" id="step2tab1" role="tabpanel">
+            <div class="form-group">
+                <label class="custom-file">
+                    <input type="file" id="FileToUpload" class="custom-file-input">
+                    <span class="custom-file-control"></span>
+                </label>                
+            </div>
+        </div>
+        <div class="tab-pane" id="step2tab2" role="tabpanel">
+            <div class="form-group">
+                <input type="text" class="form-control" id="FileToMount" disabled>
+            </div>
+        </div>
     </div>
-    <div class="form-group">
-        <label for="imageName">Mount Files</label>
-        <input type="text" class="form-control" id="FileToMount" disabled>
-    </div>
+
+
 </form>

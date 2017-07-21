@@ -108,3 +108,16 @@ table tbody tr:nth-child(4n+4)
     max-width:90%;
     width:90%;
 }
+
+
+.arrow-cursor:hover {
+    cursor:default;
+} 
+
+
+.custom-file-control::after {
+  content: "Select file...";
+}
+.custom-file-control::before {
+  content: "Browse";
+}
